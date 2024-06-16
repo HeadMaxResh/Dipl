@@ -1,0 +1,50 @@
+<resources>
+    <string name="app_name">Dipl</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="home">Домашняя страница</string>
+    <string name="favorites">Понравившееся</string>
+    <string name="add">Добавление</string>
+    <string name="message">Сообщения</string>
+    <string name="profile">Профиль</string>
+
+    <string-array name="city_names">
+        <item>Москва</item>
+        <item>Санкт-Петербург</item>
+        <item>Новосибирск</item>
+        <item>Екатеринбург</item>
+        <item>Нижний Новгород</item>
+        <item>Казань</item>
+        <item>Челябинск</item>
+        <item>Омск</item>
+        <item>Самара</item>
+        <item>Ростов-на-Дону</item>
+        <item>Уфа</item>
+        <item>Красноярск</item>
+        <item>Пермь</item>
+        <item>Воронеж</item>
+        <item>Волgоград</item>
+        <item>Краснодар</item>
+        <item>Саратов</item>
+        <item>Тюмень</item>
+        <item>Тольятти</item>
+        <item>Ижевск</item>
+        <item>Барнаул</item>
+        <item>Иркутск</item>
+        <item>Йошкар-Ола</item>
+        <item>Кемерово</item>
+        <item>Курск</item>
+        <item>Липецк</item>
+        <item>Магнитогорск</item>
+        <item>Набережные Челны</item>
+        <item>Пенза</item>
+        <item>Рязань</item>
+        <item>Смоленск</item>
+        <item>Стерлитамак</item>
+        <item>Тула</item>
+        <item>Ульяновск</item>
+        <item>Хабаровск</item>
+        <item>Чебоксары</item>
+        <item>Ярославль</item>
+    </string-array>
+</resources>

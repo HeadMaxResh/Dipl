@@ -1,0 +1,573 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.fragment.ContractFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="4dp">
+
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:text="Договор найма жилого помещения"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/city"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="2dp"
+            android:text="Город"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_marginRight="4dp"
+            android:text="Дата"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+        <TextView
+            android:id="@+id/tv1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="2dp"
+            android:text="Гражданин"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/city" />
+
+        <TextView
+            android:id="@+id/fio_owner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="2dp"
+            android:text="Гражданин"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/tv1"
+            app:layout_constraintTop_toBottomOf="@+id/city" />
+
+        <TextView
+            android:id="@+id/tv2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="2dp"
+            android:text="именуемый в дальнейшем «Наймодатель»,  личность  удостоверяется  паспортом: "
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv1" />
+
+        <TextView
+            android:id="@+id/passport_owner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="2dp"
+            android:text="Пасспорт"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv2" />
+
+        <TextView
+            android:id="@+id/tv3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="2dp"
+            android:text="с одной стороны, и "
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/passport_owner" />
+
+        <TextView
+            android:id="@+id/tv4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="2dp"
+            android:text="Гражданин"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv3" />
+
+        <TextView
+            android:id="@+id/fio_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="2dp"
+            android:text="Гражданин"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/tv4"
+            app:layout_constraintTop_toBottomOf="@+id/tv3" />
+
+        <TextView
+            android:id="@+id/tv5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="2dp"
+            android:text="именуемый в дальнейшем «Наниматель»,  личность  удостоверяется  паспортом:   "
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv4" />
+
+        <TextView
+            android:id="@+id/passport_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="2dp"
+            android:text="Пасспорт"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv5" />
+
+        <TextView
+            android:id="@+id/tv6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="2dp"
+            android:text="заключили настоящий договор, далее «Договор»,  на следующих условиях:"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/passport_user" />
+
+        <TextView
+            android:id="@+id/tv7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:padding="4dp"
+            android:text="1. ПРЕДМЕТ ДОГОВОРА"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv6" />
+
+        <TextView
+            android:id="@+id/tv8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="2dp"
+            android:text="1.1. По настоящему договору Наймодатель предоставляет принадлежащую ему на праве собственности жилое помещение Нанимателю за плату во владение и пользование для проживания в ней.
+1.2. Указанное жилое помещение находится по адресу: "
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv7" />
+
+        <TextView
+            android:id="@+id/apartment_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="2dp"
+            android:text="Адрес"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv8" />
+
+        <TextView
+            android:id="@+id/tv9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="2dp"
+            android:text="1.3. Наниматель использует жилое помещение в течение всего срока найма в соответствии с ее целевым назначением (для проживания)."
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/apartment_address" />
+
+        <TextView
+            android:id="@+id/tv10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="2dp"
+            android:text="1.4. Настоящий договор одновременно является актом приема-передачи жилого помещения."
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv9" />
+
+        <TextView
+            android:id="@+id/tv11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:text="2. ПРАВА И ОБЯЗАННОСТИ СТОРОН"
+            android:textSize="16sp"
+            android:layout_marginTop="2dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv10" />
+
+        <TextView
+            android:id="@+id/tv12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:text="2.1. Наниматель обязан:
+- вносить плату Наймодателю в сроки и в порядке, установленные настоящим договором;
+- в период действия настоящего договора своевременно осуществлять все необходимые платежи за жилое помещение и коммунальные услуги;
+- пользоваться жилым помещением, указанным в п. 1.2 Договора, исключительно в целях проживания;
+- надлежащим образом относиться к жилому помещению, указанной в п. 1.2 Договора, и использовать соответственно ее назначению и техническим особенностям;
+- соблюдать правила пользования жилыми помещениями, в том числе правила безопасности, принимать необходимые меры к сохранности жилого помещения, установленного в ней оборудования и имущества;
+- возмещать ущерб, причиненный жилому помещению и установленному в нем имуществу и оборудованию по вине Нанимателя;
+- исполнять другие обязанности, установленные действующим законодательством для нанимателей жилых помещений.
+
+2.2. Наниматель обязан информировать Наймодателя по всем вопросам и обстоятельствам, имеющим отношение к жилому помещению, указанному в п. 1.2 Договора. Сообщения должны быть своевременными и полными.
+2.3. Наниматель имеет право:
+- вернуть жилое помещение Наймодателю до истечения срока найма, письменно предупредив Наймодателя об этом за 3 дней;
+- на заключение договора найма на новый срок;
+- допускать проживание в жилом помещении любых лиц (временных жильцов) по своему выбору без передачи жилого помещения в поднаем с согласия Наймодателя. Ответственность за действия временных жильцов перед Наймодателем несет Наниматель;
+- осуществлять другие права, предоставленные нанимателям жилых помещений действующим законодательством и обычаями делового оборота.
+2.4. Наймодатель обязан:
+- передать Нанимателю жилое помещение и установленное в жилом помещении оборудование и другое имущество в исправном состоянии в течение 3 дней после заключения настоящего Договора;
+- осуществлять за свой счет капитальный ремонт жилого помещения и замену изношенного оборудования;
+- не чинить препятствий Нанимателю в правомерном пользовании жилым помещением, указанным в п. 1.2 Договора;
+- в срок не позднее чем за 3 дней до истечения срока настоящего договора предложить Нанимателю заключить договор на тех же условиях или предупредить Нанимателя об отказе в продлении договора в связи с решением не сдавать в течение не менее года жилого помещения внаем.
+2.5. Наймодатель имеет право:
+- расторгнуть настоящий договор в случае неоплаты Нанимателем жилого помещения и коммунальных услуг.
+"
+            android:textSize="16sp"
+            android:layout_margin="4dp"
+            android:layout_marginTop="2dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv11" />
+
+
+        <TextView
+            android:id="@+id/tv13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:text="3. РАСЧЕТЫ ПО ДОГОВОРУ"
+            android:textSize="16sp"
+            android:layout_marginTop="2dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv12" />
+
+        <TextView
+            android:id="@+id/tv14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:text="3.1. Наниматель обязуется регулярно вносить Наймодателю плату за пользование жилым помещением.
+3.2. Плата за пользование жилым помещением"
+            android:textSize="16sp"
+            android:layout_marginTop="2dp"
+            android:layout_marginLeft="4dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv13" />
+
+        <TextView
+            android:id="@+id/tv15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:text="составляет"
+            android:textSize="16sp"
+            android:layout_marginTop="2dp"
+            android:layout_marginLeft="4dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv14" />
+
+        <TextView
+            android:id="@+id/rent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:text="цена"
+            android:textSize="16sp"
+            android:layout_marginTop="2dp"
+            android:layout_marginLeft="4dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/tv15"
+            app:layout_constraintTop_toBottomOf="@+id/tv14" />
+
+        <TextView
+            android:id="@+id/tv16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:text="3.3. Документами, подтверждающими плату за пользование жилым помещением могут являться: расписка Наймодателя о получении денежных средств либо выписка о списании денег с карточного счета Нанимателя на счет Наймодателя."
+            android:textSize="16sp"
+            android:layout_marginTop="2dp"
+            android:layout_marginLeft="4dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv15" />
+
+        <TextView
+            android:id="@+id/tv17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:text="4. ОТВЕТСТВЕННОСТЬ СТОРОН ПО ДОГОВОРУ"
+            android:textSize="16sp"
+            android:layout_marginTop="2dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv16" />
+
+        <TextView
+            android:id="@+id/tv18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:text="4.1. Наймодатель освобождается от ответственности за вред, причиненный жизни, здоровью или имуществу Нанимателя.
+4.2. Наймодатель отвечает перед Нанимателем за все претензии, которые могут возникнуть из прав третьих лиц, которые ограничивают или препятствуют пользованию жилым помещением и другим находящимся в ней имуществом, при условии, что Наниматель не знал и не мог знать о существовании третьих лиц при заключении договора.
+4.3. Наниматель несет персональную ответственность за нарушение требований настоящего договора, а также действия других членов семьи, лиц, временно проживающих в жилом помещении.
+4.4. В случае пользования жилым помещением не в соответствии с условиями договора Наймодатель имеет право требовать расторжения договора и возмещения убытков.
+"
+            android:textSize="16sp"
+            android:layout_marginTop="2dp"
+            android:layout_marginLeft="4dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv17" />
+
+        <TextView
+            android:id="@+id/tv19"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:text="5. СРОК ДЕЙСТВИЯ ДОГОВОРА И ПРАВА СТОРОН
+ПО ИСТЕЧЕНИИ СРОКА ДЕЙСТВИЯ ДОГОВОРА
+"
+            android:textSize="16sp"
+            android:layout_marginTop="2dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv18" />
+
+        <TextView
+            android:id="@+id/tv20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:text="5.1. Настоящий договор заключен на срок 1 месяц. Договор вступает в силу с момента его заключения.
+5.2. По истечении срока действия настоящего Договора стороны вправе:
+- прекратить свои договорные отношения;
+- заключить новый договор найма жилого помещения на тех же или иных условиях на новый срок.
+"
+            android:textSize="16sp"
+            android:layout_marginTop="2dp"
+            android:layout_margin="4dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv19" />
+
+        <TextView
+            android:id="@+id/tv21"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:text="6. ЗАКЛЮЧИТЕЛЬНЫЕ ПОЛОЖЕНИЯ"
+            android:textSize="16sp"
+            android:layout_marginTop="2dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv20" />
+
+        <TextView
+            android:id="@+id/tv22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:text="6.1. Договор заключён в 2-х экземплярах, имеющих одинаковую юридическую силу, по одному экземпляру для каждой Стороны.
+6.2. Любая договоренность между Сторонами, влекущая за собой новые обязательства, которые не вытекают из Договора, должна быть подтверждена Сторонами в форме дополнительных соглашений к Договору. Все изменения и дополнения к Договору считаются действительными, если они оформлены в письменном виде и подписаны надлежащими уполномоченными представителями Сторон.
+6.3. Сторона не вправе передавать свои права и обязательства по Договору третьим лицам без предварительного письменного согласия другой Стороны.
+6.4. Стороны соглашаются, что за исключением сведений, которые в соответствии с законодательством Российской Федерации не могут составлять тайну лица, содержание Договора, а также все документы, переданные Сторонами друг другу в связи с Договором, считаются конфиденциальными и относятся к тайне Сторон, которая не подлежит разглашению без письменного согласия другой Стороны.
+6.5. Для целей удобства в Договоре под Сторонами также понимаются их уполномоченные лица, а также их возможные правопреемники.
+6.6. Все споры и разногласия, которые могут возникнуть между Сторонами и вытекающие из настоящего Договора или в связи с ним, будут разрешаться путем переговоров. В случае невозможности путем переговоров достичь соглашения по спорным вопросам в течение 15 (пятнадцати) календарных дней с момента получения письменной претензии, споры разрешаются в судебном порядке в соответствии с действующим законодательством РФ.
+6.7. Условия Договора обязательны для правопреемников Сторон.
+"
+            android:textSize="16sp"
+            android:layout_marginTop="2dp"
+            android:layout_margin="4dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv21" />
+
+
+        <TextView
+            android:id="@+id/tv23"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:text="7. ПОДПИСИ СТОРОН"
+            android:textSize="16sp"
+            android:layout_marginTop="2dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv22" />
+
+
+        <TextView
+            android:id="@+id/tv24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:text="Наймодатель"
+            android:textSize="16sp"
+            android:layout_marginTop="2dp"
+            android:layout_margin="4dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv23" />
+
+        <TextView
+            android:id="@+id/fio_owner_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:text="Наймодатель"
+            android:textSize="16sp"
+            android:layout_marginTop="2dp"
+            android:layout_margin="4dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/tv24"
+            app:layout_constraintTop_toBottomOf="@+id/tv23" />
+
+        <TextView
+            android:id="@+id/tv25"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:text="Подпись"
+            android:textSize="16sp"
+            android:layout_marginTop="2dp"
+            android:layout_margin="4dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv24" />
+
+        <TextView
+            android:id="@+id/sign_owner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:text="Подпись"
+            android:textSize="16sp"
+            android:layout_marginTop="2dp"
+            android:layout_margin="4dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/tv25"
+            app:layout_constraintTop_toBottomOf="@+id/tv24" />
+
+
+        <TextView
+            android:id="@+id/tv26"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:text="Наймодатель"
+            android:textSize="16sp"
+            android:layout_marginTop="2dp"
+            android:layout_margin="4dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv25" />
+
+        <TextView
+            android:id="@+id/fio_user_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:text="Наймодатель"
+            android:textSize="16sp"
+            android:layout_marginTop="2dp"
+            android:layout_margin="4dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/tv26"
+            app:layout_constraintTop_toBottomOf="@+id/tv25" />
+
+        <TextView
+            android:id="@+id/tv27"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:text="Подпись"
+            android:textSize="16sp"
+            android:layout_marginTop="2dp"
+            android:layout_margin="4dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv26" />
+
+        <TextView
+            android:id="@+id/sign_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:text="Подпись"
+            android:textSize="16sp"
+            android:layout_marginTop="2dp"
+            android:layout_margin="4dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/tv27"
+            app:layout_constraintTop_toBottomOf="@+id/tv26" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
+

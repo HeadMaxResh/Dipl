@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="SlideInFromTopAnimation">
+        <item name="android:windowEnterAnimation">@anim/slide_in_from_top</item>
+    </style>
+</resources>

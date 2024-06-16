@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.dipl.presentation.fragment.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_detailFragment"
+            app:destination="@id/detailFragment"
+            app:popUpToInclusive="true">
+
+            <!--<argument
+                android:name="apartmentId"
+                app:argType="integer" />-->
+
+        <argument
+            android:name="apartmentInfo"
+            app:argType="com.example.dipl.domain.model.ApartmentInfo" />
+        </action>
+        <action
+            android:id="@+id/action_homeFragment_to_filterFragment"
+            app:destination="@id/filterFragment" />
+        <argument
+            android:name="city"
+            app:argType="string"
+            android:defaultValue="city" />
+        <argument
+            android:name="minRent"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <argument
+            android:name="maxRent"
+            app:argType="integer"
+            android:defaultValue="2147483647" />
+        <argument
+            android:name="minArea"
+            app:argType="float"
+            android:defaultValue="0" />
+        <argument
+            android:name="maxArea"
+            app:argType="float"
+            android:defaultValue="10000000" />
+        <argument
+            android:name="countRooms"
+            app:argType="integer"
+            android:defaultValue="1" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/likedFragment"
+        android:name="com.example.dipl.presentation.fragment.LikedFragment"
+        android:label="fragment_liked"
+        tools:layout="@layout/fragment_liked" >
+        <action
+            android:id="@+id/action_likedFragment_to_detailFragment"
+            app:destination="@id/detailFragment" >
+
+            <!--<argument
+                android:name="apartmentId"
+                app:argType="integer" />-->
+
+        <argument
+            android:name="apartmentInfo"
+            app:argType="com.example.dipl.domain.model.ApartmentInfo" />
+        </action>
+
+    </fragment>
+    <fragment
+        android:id="@+id/addFragment"
+        android:name="com.example.dipl.presentation.fragment.AddFragment"
+        android:label="fragment_add"
+        tools:layout="@layout/fragment_add" />
+    <fragment
+        android:id="@+id/chatFragment"
+        android:name="com.example.dipl.presentation.fragment.ChatFragment"
+        android:label="fragment_chat"
+        tools:layout="@layout/fragment_chat" >
+        <action
+            android:id="@+id/action_chatFragment_to_chatDetailFragment"
+            app:destination="@id/chatDetailFragment"
+            app:popUpToInclusive="false">
+
+            <argument
+                android:name="user"
+                app:argType="com.example.dipl.domain.model.User" />
+
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.dipl.presentation.fragment.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" >
+
+        <action
+            android:id="@+id/action_profileFragment_to_settingsDialogFragment"
+            app:destination="@id/settingsDialogFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_myApartmentsFragment"
+            app:destination="@id/myApartmentsFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_einFragment"
+            app:destination="@id/einFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_profileFragment_to_responseListFragment"
+            app:destination="@id/responseListFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_profileFragment_to_passportFragment"
+            app:destination="@id/passportFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_profileFragment_to_responseSendListFragment"
+            app:destination="@id/responseSendListFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_profileFragment_to_contractListFragment"
+            app:destination="@id/contractListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.example.dipl.presentation.fragment.DetailFragment"
+        android:label="fragment_detail"
+        tools:layout="@layout/fragment_detail" >
+        <action
+            android:id="@+id/action_detailFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_detailFragment_to_newReviewFragment"
+            app:destination="@id/newReviewFragment">
+
+            <argument
+                android:name="apartmentId"
+                app:argType="integer" />
+
+        </action>
+        <argument
+            android:name="apartmentInfo"
+            app:argType="com.example.dipl.domain.model.ApartmentInfo" />
+        <action
+            android:id="@+id/action_detailFragment_to_chatDetailFragment"
+            app:destination="@id/chatDetailFragment" />
+        <action
+            android:id="@+id/action_detailFragment_to_responseSendListFragment"
+            app:destination="@id/responseSendListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newReviewFragment"
+        android:name="com.example.dipl.presentation.fragment.NewReviewFragment"
+        android:label="fragment_new_review"
+        tools:layout="@layout/fragment_new_review" >
+        <action
+            android:id="@+id/action_newReviewFragment_to_detailFragment"
+            app:destination="@id/detailFragment"
+            app:popUpToInclusive="true" >
+
+            <argument
+                android:name="apartmentId"
+                app:argType="integer" />
+
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.dipl.presentation.fragment.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" >
+        <action
+            android:id="@+id/action_settingsFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_userSettingsFragment"
+            app:destination="@id/userSettingsFragment" />
+    </fragment>
+
+    <dialog
+        android:id="@+id/settingsDialogFragment"
+        android:name="com.example.dipl.presentation.fragment.SettingsFragment"
+        tools:layout="@layout/fragment_settings">
+        <action
+            android:id="@+id/action_settingsDialogFragment_to_userSettingsFragment"
+            app:destination="@id/userSettingsFragment" />
+    </dialog>
+
+    <fragment
+        android:id="@+id/userSettingsFragment"
+        android:name="com.example.dipl.presentation.fragment.UserSettingsFragment"
+        android:label="fragment_user_settings"
+        tools:layout="@layout/fragment_user_settings" >
+        <action
+            android:id="@+id/action_userSettingsFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/chatDetailFragment"
+        android:name="com.example.dipl.presentation.fragment.ChatDetailFragment"
+        android:label="fragment_chat_detail"
+        tools:layout="@layout/fragment_chat_detail" >
+        <argument
+            android:name="user"
+            app:argType="com.example.dipl.domain.model.User" />
+        <action
+            android:id="@+id/action_chatDetailFragment_to_chatFragment"
+            app:destination="@id/chatFragment"
+            app:popUpTo="@id/chatFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <dialog
+        android:id="@+id/filterFragment"
+        android:name="com.example.dipl.presentation.fragment.FilterFragment"
+        android:label="fragment_filter"
+        tools:layout="@layout/fragment_filter" >
+        <action
+            android:id="@+id/action_filterFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </dialog>
+    <dialog
+        android:id="@+id/einFragment"
+        android:name="com.example.dipl.presentation.fragment.EinFragment"
+        android:label="fragment_ein"
+        tools:layout="@layout/fragment_ein" >
+        <action
+            android:id="@+id/action_einFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </dialog>
+    <fragment
+        android:id="@+id/myApartmentsFragment"
+        android:name="com.example.dipl.presentation.fragment.MyApartmentsFragment"
+        android:label="fragment_my_apartments"
+        tools:layout="@layout/fragment_my_apartments" >
+        <action
+            android:id="@+id/action_myApartmentsFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_myApartmentsFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/passportFragment"
+        android:name="com.example.dipl.presentation.fragment.PassportFragment"
+        android:label="fragment_passport"
+        tools:layout="@layout/fragment_passport" >
+        <action
+            android:id="@+id/action_passportFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </dialog>
+    <fragment
+        android:id="@+id/responseListFragment"
+        android:name="com.example.dipl.presentation.fragment.ResponseListFragment"
+        android:label="fragment_response_list"
+        tools:layout="@layout/fragment_response_list" >
+        <action
+            android:id="@+id/action_responseListFragment_to_chatDetailFragment"
+            app:destination="@id/chatDetailFragment" />
+        <action
+            android:id="@+id/action_responseListFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_responseListFragment_to_contractFragment"
+            app:destination="@id/contractFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/responseSendListFragment"
+        android:name="com.example.dipl.presentation.fragment.ResponseSendListFragment"
+        android:label="fragment_response_send_list"
+        tools:layout="@layout/fragment_response_send_list" >
+        <action
+            android:id="@+id/action_responseSendListFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_responseSendListFragment_to_profileFragment2"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_responseSendListFragment_to_contractFragment"
+            app:destination="@id/contractFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/contractListFragment"
+        android:name="com.example.dipl.presentation.fragment.ContractListFragment"
+        android:label="ContractListFragment" >
+        <action
+            android:id="@+id/action_contractListFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_contractListFragment_to_contractFragment"
+            app:destination="@id/contractFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/contractFragment"
+        android:name="com.example.dipl.presentation.fragment.ContractFragment"
+        android:label="fragment_contract"
+        tools:layout="@layout/fragment_contract" >
+        <argument
+            android:name="contract"
+            app:argType="com.example.dipl.domain.model.Contract" />
+    </fragment>
+</navigation>
