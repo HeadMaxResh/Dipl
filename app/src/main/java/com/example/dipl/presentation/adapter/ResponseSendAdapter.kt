@@ -1,35 +1,23 @@
 package com.example.dipl.presentation.adapter
 
-import android.icu.util.Calendar
-import android.os.Build
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
-import androidx.navigation.Navigation.findNavController
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.diplback.diplserver.dto.ContractDto
-import com.example.dipl.CircleTransformation
 import com.example.dipl.R
 import com.example.dipl.data.api.Api
 import com.example.dipl.data.api.Api.contractApiService
 import com.example.dipl.domain.model.Contract
 import com.example.dipl.domain.model.ResponseApartment
 import com.example.dipl.domain.model.User
-import com.example.dipl.presentation.fragment.ResponseListFragmentDirections
 import com.example.dipl.presentation.fragment.ResponseSendListFragmentDirections
-import com.squareup.picasso.Picasso
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.io.File
-import java.time.LocalDate
-import java.time.ZoneId
 
 class ResponseSendAdapter(
     private val responseList: List<ResponseApartment>,
@@ -47,7 +35,7 @@ class ResponseSendAdapter(
         /*val btnApproved: Button = view.findViewById(R.id.btn_approved)
         val btnReject: Button = view.findViewById(R.id.btn_reject)*/
         val tvStatus: TextView = view.findViewById(R.id.tv_status)
-        val btnCreate: Button = view.findViewById(R.id.btn_create)
+        val btnCheck: Button = view.findViewById(R.id.btn_check)
         val btnOpen: Button = view.findViewById(R.id.btn_open)
     }
 
@@ -80,16 +68,23 @@ class ResponseSendAdapter(
         holder.tvStatus.text = currentItem.status
 
         if (currentItem.status == "В ожидании" || currentItem.status == "Отклонено") {
-            holder.btnCreate.visibility = View.GONE
+            holder.btnCheck.visibility = View.GONE
         } else {
-            holder.btnCreate.visibility = View.VISIBLE
+            holder.btnCheck.visibility = View.VISIBLE
         }
 
         checkContractExistence(currentItem, holder)
 
-        holder.btnCreate.setOnClickListener {
+        holder.btnCheck.setOnClickListener {
 
-            user?.let { user ->
+            val action = user?.let { it1 ->
+                ResponseSendListFragmentDirections.actionResponseSendListFragmentToContractCheckFragment(currentItem.apartmentInfo,
+                    it1
+                )
+            }
+            action?.let { it1 -> holder.itemView.findNavController().navigate(it1) }
+
+            /*user?.let { user ->
                 val contractDto = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     ContractDto(
                         apartmentInfoId = currentItem.apartmentInfo.id,
@@ -106,12 +101,12 @@ class ResponseSendAdapter(
                     override fun onResponse(call: Call<Contract>, response: Response<Contract>) {
                         if (response.isSuccessful) {
                             val contract = response.body()
-                            val action = contract?.let { it1 ->
+                            *//*val action = contract?.let { it1 ->
                                 ResponseSendListFragmentDirections.actionResponseSendListFragmentToContractFragment(
                                     it1
                                 )
                             }
-                            action?.let { it1 -> holder.itemView.findNavController().navigate(it1) }
+                            action?.let { it1 -> holder.itemView.findNavController().navigate(it1) }*//*
                             //Toast.makeText(context, "Контракт успешно создан", Toast.LENGTH_SHORT).show()
                         } else {
                             // Обработка ошибки при создании контракта
@@ -124,7 +119,7 @@ class ResponseSendAdapter(
                         //Toast.makeText(context, "Ошибка сети", Toast.LENGTH_SHORT).show()
                     }
                 })
-            }
+            }*/
 
         }
 
@@ -174,7 +169,7 @@ class ResponseSendAdapter(
 
                     if (contract != null) {
                         // Контракт уже существует, скрываем кнопку создания и показываем кнопку открытия
-                        holder.btnCreate.visibility = View.GONE
+                        holder.btnCheck.visibility = View.GONE
                         holder.btnOpen.visibility = View.VISIBLE
 
                         holder.btnOpen.setOnClickListener {

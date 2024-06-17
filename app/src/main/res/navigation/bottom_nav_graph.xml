@@ -281,6 +281,9 @@
         <action
             android:id="@+id/action_responseSendListFragment_to_contractFragment"
             app:destination="@id/contractFragment" />
+        <action
+            android:id="@+id/action_responseSendListFragment_to_contractCheckFragment"
+            app:destination="@id/contractCheckFragment" />
     </fragment>
     <fragment
         android:id="@+id/contractListFragment"
@@ -301,5 +304,17 @@
         <argument
             android:name="contract"
             app:argType="com.example.dipl.domain.model.Contract" />
+    </fragment>
+    <fragment
+        android:id="@+id/contractCheckFragment"
+        android:name="com.example.dipl.presentation.fragment.ContractCheckFragment"
+        android:label="fragment_contract_check"
+        tools:layout="@layout/fragment_contract_check" >
+        <argument
+            android:name="apartmentInfo"
+            app:argType="com.example.dipl.domain.model.ApartmentInfo" />
+        <argument
+            android:name="user"
+            app:argType="com.example.dipl.domain.model.User" />
     </fragment>
 </navigation>

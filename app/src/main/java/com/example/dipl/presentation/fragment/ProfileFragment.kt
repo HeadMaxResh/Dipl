@@ -2,6 +2,7 @@ package com.example.dipl.presentation.fragment
 
 import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,7 @@ import com.diplback.diplserver.model.Review
 import com.example.dipl.CircleTransformation
 import com.example.dipl.R
 import com.example.dipl.data.api.Api.apartmentInfoApiService
+import com.example.dipl.data.api.Api.userApiService
 import com.example.dipl.databinding.FragmentProfileBinding
 import com.example.dipl.domain.model.ApartmentInfo
 import com.example.dipl.domain.model.User
@@ -46,6 +48,25 @@ class ProfileFragment : Fragment() {
         user = PrefManager.getUser(requireContext())
 
         loadAllUserReviews()
+
+        user?.let {
+            userApiService.generateElectronicSignature(it.id).enqueue(object :
+                Callback<String> {
+                override fun onResponse(call: Call<String>, response: Response<String>) {
+                    if (response.isSuccessful) {
+                        val electronicSignature = response.body()
+                        user?.electronicSignature = electronicSignature
+                        // Update the user object in the PrefManager here if needed
+                    } else {
+                        Log.d("loadPassportData", "Failed to generate electronic signature")
+                    }
+                }
+
+                override fun onFailure(call: Call<String>, t: Throwable) {
+                    Log.d("loadPassportData", "onFailure: Failed to generate electronic signature")
+                }
+            })
+        }
 
         val imagePath = user?.photoUser
         imagePath?.let {

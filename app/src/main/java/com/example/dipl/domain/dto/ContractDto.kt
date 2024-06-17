@@ -6,5 +6,7 @@ data class ContractDto(
     val apartmentInfoId: Int,
     val userOwnerId: Int,
     val userSenderId: Int,
-    val date: String?
+    val date: String?,
+    val ownerElectronicSignature: String,
+    val senderElectronicSignature: String
 )

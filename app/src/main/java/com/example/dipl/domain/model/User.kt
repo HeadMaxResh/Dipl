@@ -11,5 +11,5 @@ data class User(
     val phone: String,
     var password: String,
     val rate: Int = 5,
-
+    var electronicSignature: String?
 ) : Serializable

@@ -25,6 +25,9 @@ interface UserApiService {
     @GET("/user/{userId}")
     fun getUserById(@Path("userId") userId: Int): Call<User>
 
+    @GET("/user/{userId}/generateSignature")
+    fun generateElectronicSignature(@Path("userId") userId: Int): Call<String>
+
     @POST("/apartments/favorite/{apartmentId}/user/{userId}")
     fun addFavoriteApartment(
         @Path("userId") userId: Int,

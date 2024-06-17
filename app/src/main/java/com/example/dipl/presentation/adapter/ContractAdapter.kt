@@ -1,31 +1,22 @@
 package com.example.dipl.presentation.adapter
 
-import android.os.Build
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.diplback.diplserver.dto.ContractDto
-import com.example.dipl.CircleTransformation
 import com.example.dipl.R
 import com.example.dipl.data.api.Api
 import com.example.dipl.domain.model.Contract
 import com.example.dipl.domain.model.ResponseApartment
 import com.example.dipl.domain.model.User
 import com.example.dipl.presentation.fragment.ContractListFragmentDirections
-import com.example.dipl.presentation.fragment.ResponseListFragmentDirections
-import com.example.dipl.presentation.fragment.ResponseSendListFragmentDirections
-import com.squareup.picasso.Picasso
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.io.File
-import java.time.LocalDate
 
 class ContractAdapter(
     private val responseList: List<Contract>,
@@ -43,7 +34,7 @@ class ContractAdapter(
         /*val btnApproved: Button = view.findViewById(R.id.btn_approved)
         val btnReject: Button = view.findViewById(R.id.btn_reject)*/
         val tvStatus: TextView = view.findViewById(R.id.tv_status)
-        val btnCreate: Button = view.findViewById(R.id.btn_create)
+        val btnCreate: Button = view.findViewById(R.id.btn_check)
         val btnOpen: Button = view.findViewById(R.id.btn_open)
         val tv: TextView = view.findViewById(R.id.tv)
     }

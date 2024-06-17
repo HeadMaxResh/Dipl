@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import com.diplback.diplserver.model.Ein
 import com.diplback.diplserver.model.Passport
 import com.example.dipl.R
+import com.example.dipl.data.api.Api
 import com.example.dipl.data.api.Api.einApiService
 import com.example.dipl.databinding.FragmentEinBinding
 import com.example.dipl.databinding.FragmentResponseListBinding
@@ -101,6 +102,23 @@ class EinFragment : DialogFragment() {
                     if (response.isSuccessful) {
                         val ein = response.body()
                         binding.etEin.setText(ein?.einNumber.toString())
+
+                        Api.userApiService.generateElectronicSignature(userId).enqueue(object :
+                            Callback<String> {
+                            override fun onResponse(call: Call<String>, response: Response<String>) {
+                                if (response.isSuccessful) {
+                                    val electronicSignature = response.body()
+                                    user?.electronicSignature = electronicSignature
+                                    // Update the user object in the PrefManager here if needed
+                                } else {
+                                    Log.d("loadPassportData", "Failed to generate electronic signature")
+                                }
+                            }
+
+                            override fun onFailure(call: Call<String>, t: Throwable) {
+                                Log.d("loadPassportData", "onFailure: Failed to generate electronic signature")
+                            }
+                        })
 
                     } else {
                         Log.d("loadPassportData", "response not successful")

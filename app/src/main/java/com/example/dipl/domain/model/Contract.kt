@@ -10,4 +10,6 @@ data class Contract(
     val userSender: User,
     val passportSender: Passport,
     val date: String,
+    val ownerElectronicSignature: String,
+    val senderElectronicSignature: String
 ): java.io.Serializable

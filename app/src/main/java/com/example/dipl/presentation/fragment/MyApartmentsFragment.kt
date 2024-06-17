@@ -114,4 +114,9 @@ class MyApartmentsFragment : Fragment(), CardItemAdapter.OnItemClickListener {
 
     override fun onRemoveFromFavorites(apartmentInfo: ApartmentInfo) {}
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
 }

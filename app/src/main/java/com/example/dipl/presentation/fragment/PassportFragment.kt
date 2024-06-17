@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.diplback.diplserver.model.Passport
 import com.example.dipl.R
 import com.example.dipl.data.api.Api.passportApiService
+import com.example.dipl.data.api.Api.userApiService
 import com.example.dipl.databinding.FragmentPassportBinding
 import com.example.dipl.databinding.FragmentResponseListBinding
 import com.example.dipl.domain.dto.PassportDto
@@ -70,6 +71,23 @@ class PassportFragment : DialogFragment() {
                     } else {
                         Log.d("loadPassportData", "response not successful")
                     }
+
+                    userApiService.generateElectronicSignature(userId).enqueue(object :
+                        Callback<String> {
+                        override fun onResponse(call: Call<String>, response: Response<String>) {
+                            if (response.isSuccessful) {
+                                val electronicSignature = response.body()
+                                user?.electronicSignature = electronicSignature
+                                // Update the user object in the PrefManager here if needed
+                            } else {
+                                Log.d("loadPassportData", "Failed to generate electronic signature")
+                            }
+                        }
+
+                        override fun onFailure(call: Call<String>, t: Throwable) {
+                            Log.d("loadPassportData", "onFailure: Failed to generate electronic signature")
+                        }
+                    })
                 }
 
                 override fun onFailure(call: Call<Passport>, t: Throwable) {

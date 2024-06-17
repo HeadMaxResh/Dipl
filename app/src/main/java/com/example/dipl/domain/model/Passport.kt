@@ -11,7 +11,7 @@ data class Passport(
     val number: String,
     val registration: String,
     val user: User
-) {
+): java.io.Serializable {
     override fun toString(): String {
         return "Пасспорт серии $series № $number, зарегистрирован по адресу $registration"
     }
