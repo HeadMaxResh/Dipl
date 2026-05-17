@@ -46,7 +46,7 @@ class ChatMessageAdapter(var messages: List<Message>, private val currentUser: U
 
         } else if (holder is ReceivedMessageViewHolder) {
             holder.messageTextView.text = message.content
-            val imageByteArray = currentUser.photoUser // Assuming you have a field to store the image path in the User class
+            val imageByteArray = currentUser.photoUser
             imageByteArray?.let {
                 val file = File(it)
                 if (file.exists()) {

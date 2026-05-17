@@ -6,10 +6,7 @@ import com.example.dipl.domain.dto.ReviewDto
 import com.example.dipl.domain.model.ApartmentInfo
 import retrofit2.Call
 import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
+import retrofit2.http.*
 
 interface ApartmentInfoApiService {
 
@@ -51,5 +48,21 @@ interface ApartmentInfoApiService {
     @GET("/apartments/{apartmentId}/reviews")
     fun getApartmentReviews(@Path("apartmentInfoId") apartmentInfoId: Int): Call<List<Review>>
 
+    @DELETE("/{apartmentInfoId}/delete")
+    fun deleteApartment(@Path("apartmentInfoId") apartmentInfoId: Int)
 
+    @PUT("/apartments/{apartmentInfoId}/hide")
+    fun setApartmentHideStatus(
+        @Path("apartmentInfoId") apartmentInfoId: Int
+    ): Call<ApartmentInfo>
+
+    @PUT("/apartments/{apartmentInfoId}/show")
+    fun setApartmentShowStatus(
+        @Path("apartmentInfoId") apartmentInfoId: Int
+    ): Call<ApartmentInfo>
+
+    @GET("/apartments/{apartmentInfoId}/status")
+    fun getApartmentHideStatus(
+        @Path("apartmentInfoId") apartmentInfoId: Int
+    ): Call<Boolean>
 }

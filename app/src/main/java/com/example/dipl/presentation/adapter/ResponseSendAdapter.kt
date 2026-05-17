@@ -168,12 +168,11 @@ class ResponseSendAdapter(
                     val contract = response.body()
 
                     if (contract != null) {
-                        // Контракт уже существует, скрываем кнопку создания и показываем кнопку открытия
+
                         holder.btnCheck.visibility = View.GONE
                         holder.btnOpen.visibility = View.VISIBLE
-
                         holder.btnOpen.setOnClickListener {
-                            // Передаем контракт в навигационный контроллер
+
                             val action = contract.let {
                                 ResponseSendListFragmentDirections.actionResponseSendListFragmentToContractFragment(
                                     it
@@ -186,9 +185,7 @@ class ResponseSendAdapter(
             }
 
             override fun onFailure(call: Call<Contract>, t: Throwable) {
-                // Обработка ошибки при получении контракта
-                Log.d("jkl", "kl;")
-                //Toast.makeText(context, "Ошибка при получении контракта", Toast.LENGTH_SHORT).show()
+                Log.d("checkContractExistence", "checkContractExistence")
             }
         })
     }
@@ -262,12 +259,12 @@ class ResponseSendAdapter(
                     holder.tvStatus.text = status
 
                 } else {
-                    // Обработать ошибку
+                    Log.d("updateResponseStatus", "updateResponseStatus")
                 }
             }
 
             override fun onFailure(call: Call<ResponseApartment>, t: Throwable) {
-                // Обработать сбой запроса
+                Log.d("updateResponseStatus", "updateResponseStatus")
             }
         })
     }

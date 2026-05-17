@@ -185,7 +185,7 @@ class ContractAdapter(
 
             override fun onFailure(call: Call<Contract>, t: Throwable) {
                 // Обработка ошибки при получении контракта
-                Log.d("jkl", "kl;")
+                Log.d("checkContractExistence", "checkContractExistence;")
                 //Toast.makeText(context, "Ошибка при получении контракта", Toast.LENGTH_SHORT).show()
             }
         })
@@ -260,12 +260,12 @@ class ContractAdapter(
                     holder.tvStatus.text = status
 
                 } else {
-                    // Обработать ошибку
+                    Log.d("updateResponseStatus", "updateResponseStatus")
                 }
             }
 
             override fun onFailure(call: Call<ResponseApartment>, t: Throwable) {
-                // Обработать сбой запроса
+                Log.d("updateResponseStatus", "updateResponseStatus")
             }
         })
     }

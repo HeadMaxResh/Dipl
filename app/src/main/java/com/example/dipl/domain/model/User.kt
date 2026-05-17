@@ -12,4 +12,8 @@ data class User(
     var password: String,
     val rate: Int = 5,
     var electronicSignature: String?
-) : Serializable
+) : Serializable {
+    fun isModerator(): Boolean {
+        return name == "moderator" || name == "модератор" || name == "Модерация"
+    }
+}

@@ -3,6 +3,7 @@ package com.example.dipl.presentation.fragment
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -102,12 +103,12 @@ class ChatDetailFragment : Fragment() {
                                 recyclerView.scrollToPosition(chatMessageAdapter.itemCount - 1)
                             }
                         } else {
-                            // Обработка ошибки
+                            Log.d("sendMessage", "sendMessage")
                         }
                     }
 
                     override fun onFailure(call: Call<Message>, t: Throwable) {
-                        // Обработка ошибки
+                        Log.d("sendMessage", "sendMessage")
                     }
                 })
             }
@@ -130,12 +131,12 @@ class ChatDetailFragment : Fragment() {
                                 chatMessageAdapter.notifyDataSetChanged()
                             }
                         } else {
-                            // Обработка ошибки
+                            Log.d("loadChatHistory", "loadChatHistory")
                         }
                     }
 
                     override fun onFailure(call: Call<List<Message>>, t: Throwable) {
-                        // Обработка ошибки
+                        Log.d("loadChatHistory", "loadChatHistory")
                     }
                 })
             }

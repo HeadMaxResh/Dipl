@@ -83,13 +83,13 @@ class LikedFragment : Fragment(), CardItemAdapter.OnItemClickListener {
                             progressIndicator.visibility = View.GONE
                             recyclerView.visibility = View.VISIBLE
                         } else {
-                            // Обработка ошибки
+                            Log.d("loadLikedApartmentsFromApi", "loadLikedApartmentsFromApi")
                         }
                         binding.swipeRefreshLayout.isRefreshing = false
                     }
 
                     override fun onFailure(call: Call<List<ApartmentInfo>>, t: Throwable) {
-                        // Обработка ошибки
+                        Log.d("loadLikedApartmentsFromApi", "loadLikedApartmentsFromApi")
                         binding.swipeRefreshLayout.isRefreshing = false
                     }
 
@@ -115,13 +115,13 @@ class LikedFragment : Fragment(), CardItemAdapter.OnItemClickListener {
                                 val isFavorite = response.body() ?: false
                                 apartmentInfo.isFavorite = isFavorite
                             } else {
-                                // Обработка ошибки
+                                Log.d("setApartmentIsFavorite", "setApartmentIsFavorite")
                             }
                             displayApartmentsInRecyclerView(list, recyclerView)
                         }
 
                         override fun onFailure(call: Call<Boolean>, t: Throwable) {
-                            // Обработка ошибки
+                            Log.d("setApartmentIsFavorite", "setApartmentIsFavorite")
                         }
                     })
             }
@@ -159,12 +159,9 @@ class LikedFragment : Fragment(), CardItemAdapter.OnItemClickListener {
                 .enqueue(object : Callback<Boolean> {
                     override fun onResponse(call: Call<Boolean>, response: Response<Boolean>) {
                         if (response.isSuccessful) {
-                            // Apartment successfully added to favorites
                             apartmentInfo.isFavorite = true
                             cardItemAdapter.notifyDataSetChanged()
                         } else {
-                            // Handle unsuccessful response
-                            // For example, show an error message to the user
                             Log.e("AddToFavorites", "Error: ${response.code()}")
                             // You can also show a Toast message
                             Toast.makeText(
@@ -177,7 +174,6 @@ class LikedFragment : Fragment(), CardItemAdapter.OnItemClickListener {
 
                     override fun onFailure(call: Call<Boolean>, t: Throwable) {
                         Log.e("AddToFavorites", "Error: ${t.message}")
-                        // You can show a Toast message or dialog with error information
                         Toast.makeText(
                             requireContext(),
                             "Network error. Please try again later",
@@ -201,7 +197,6 @@ class LikedFragment : Fragment(), CardItemAdapter.OnItemClickListener {
                             cardItemAdapter.notifyDataSetChanged()
                         } else {
                             Log.e("RemoveFromFavorites", "Error: ${response.code()}")
-                            // You can also show a Toast message
                             Toast.makeText(
                                 requireContext(),
                                 "Failed to remove apartment from favorites",
@@ -212,7 +207,6 @@ class LikedFragment : Fragment(), CardItemAdapter.OnItemClickListener {
 
                     override fun onFailure(call: Call<Boolean>, t: Throwable) {
                         Log.e("RemoveFromFavorites", "Error: ${t.message}")
-                        // You can show a Toast message or dialog with error information
                         Toast.makeText(
                             requireContext(),
                             "Network error. Please try again later",

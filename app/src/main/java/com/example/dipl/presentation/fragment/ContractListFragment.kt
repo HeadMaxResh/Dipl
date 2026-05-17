@@ -1,6 +1,7 @@
 package com.example.dipl.presentation.fragment
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -71,18 +72,15 @@ class ContractListFragment : Fragment() {
                 override fun onResponse(call: Call<List<Contract>>, response: Response<List<Contract>>) {
                     if (response.isSuccessful) {
                         val responseList = response.body()
-                        // Обновите адаптер RecyclerView с responseList
                         responseList?.let { it1 -> displayResponsesInRecyclerView(it1, recyclerView) }
                         binding.swipeRefreshLayout.isRefreshing = false
                     } else {
-                        // Обработка ошибки
                         binding.swipeRefreshLayout.isRefreshing = false
                     }
                 }
 
                 override fun onFailure(call: Call<List<Contract>>, t: Throwable) {
                     binding.swipeRefreshLayout.isRefreshing = false
-                    // Обработка сбоя
                 }
             })
         }
@@ -97,20 +95,19 @@ class ContractListFragment : Fragment() {
         recyclerView.adapter = contractAdapter
     }
 
-    // Метод для обновления статуса отклика через API
     private fun updateResponseStatus(responseId: Int, status: String) {
         val call = Api.responseApartmentApiService.updateResponseStatus(responseId, status)
         call.enqueue(object : Callback<ResponseApartment> {
             override fun onResponse(call: Call<ResponseApartment>, response: Response<ResponseApartment>) {
                 if (response.isSuccessful) {
-                    // Обновить UI или выполнить действия после успешного обновления статуса
+
                 } else {
-                    // Обработать ошибку
+
                 }
             }
 
             override fun onFailure(call: Call<ResponseApartment>, t: Throwable) {
-                // Обработать сбой запроса
+                Log.d("updateResponseStatus", "updateResponseStatus")
             }
         })
     }

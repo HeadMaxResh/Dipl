@@ -12,6 +12,7 @@ class LoginViewModel (application: Application) : AndroidViewModel(application) 
 
     sealed class LoginResult {
         data class Success(val user: User) : LoginResult()
+        data class ModerSuccess(val user: User) : LoginResult()
         data class Error(val message: String) : LoginResult()
     }
 
@@ -34,7 +35,11 @@ class LoginViewModel (application: Application) : AndroidViewModel(application) 
                         PrefManager.saveUser(getApplication(), user)
                         PrefManager.setLoggedInState(getApplication(), true)
 
-                        _enterResult.value = LoginResult.Success(user)
+                        if (user.isModerator()) {
+                            _enterResult.value = LoginResult.ModerSuccess(user)
+                        } else {
+                            _enterResult.value = LoginResult.Success(user)
+                        }
                     } else {
                         _enterResult.value = LoginResult.Error("Получен пустой ответ от сервера")
                     }

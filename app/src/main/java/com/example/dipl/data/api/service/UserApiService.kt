@@ -14,7 +14,7 @@ import retrofit2.http.Path
 interface UserApiService {
 
     @GET("/users")
-    suspend fun getAllUsers(): List<User>
+    fun getAllUsers(): Call<List<User>>
 
     @POST("/login")
     suspend fun loginUser(@Body userDto: UserDto): Response<User>
@@ -56,4 +56,8 @@ interface UserApiService {
         @Path("userId") userId: Int,
         @Path("apartmentId") apartmentId: Int
     ): Call<Boolean>
+
+    @GET("/user/{userName}/name")
+    fun getUserByName(@Path("userName") userName: String): Call<User>
+
 }

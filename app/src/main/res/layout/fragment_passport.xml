@@ -155,7 +155,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Серия паспорта"
-            android:inputType="text" />
+            android:inputType="number" />
 
     </LinearLayout>
 
@@ -173,7 +173,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:text="Серия паспорта"
+            android:text="Номер паспорта"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
@@ -182,8 +182,8 @@
             android:id="@+id/et_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Серия паспорта"
-            android:inputType="text" />
+            android:hint="Номер паспорта"
+            android:inputType="number" />
 
     </LinearLayout>
 

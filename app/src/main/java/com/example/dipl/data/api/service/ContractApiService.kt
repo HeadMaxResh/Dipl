@@ -34,4 +34,6 @@ interface ContractApiService {
     @GET("/contracts/user/{userId}/contracts")
     fun getContractsByUserSenderOrOwner(@Path("userId") userId: Int): Call<List<Contract>>
 
+    @GET("/contracts/all")
+    fun getAllContracts(): Call<List<Contract>>
 }

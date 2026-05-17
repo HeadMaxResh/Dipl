@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".presentation.fragment.ResponseSendListFragment">
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/tb_my_responses"
+        android:id="@+id/tb_all_apartments"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
@@ -33,7 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:text="Мои отклики"
+                android:text="Мои запросы"
                 android:textColor="@color/black"
                 android:textSize="23sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -50,7 +50,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:swipeRefreshLayoutProgressSpinnerBackgroundColor="@color/red"
-        app:layout_constraintTop_toBottomOf="@+id/tb_my_responses"
+        app:layout_constraintTop_toBottomOf="@+id/tb_all_apartments"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent">

@@ -79,7 +79,7 @@ class ProfileFragment : Fragment() {
             }
         }
 
-        binding.tvUserName.text = user?.name + "" + user?.surname
+        binding.tvUserName.text = user?.name + " " + user?.surname
 
         binding.cvAparments.setOnClickListener {
             val action = ProfileFragmentDirections.actionProfileFragmentToMyApartmentsFragment()
@@ -157,7 +157,7 @@ class ProfileFragment : Fragment() {
             }
 
             override fun onFailure(call: Call<List<ApartmentInfo>>, t: Throwable) {
-                // Обработка ошибки
+                Log.d("loadAllUserReviews", "loadAllUserReviews")
             }
         })
     }

@@ -82,7 +82,7 @@ class EinFragment : DialogFragment() {
 
 
                     } else {
-                        T
+
                     }
                 }
 
@@ -109,7 +109,6 @@ class EinFragment : DialogFragment() {
                                 if (response.isSuccessful) {
                                     val electronicSignature = response.body()
                                     user?.electronicSignature = electronicSignature
-                                    // Update the user object in the PrefManager here if needed
                                 } else {
                                     Log.d("loadPassportData", "Failed to generate electronic signature")
                                 }

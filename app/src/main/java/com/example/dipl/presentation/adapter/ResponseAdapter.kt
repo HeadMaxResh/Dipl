@@ -130,7 +130,7 @@ class ResponseAdapter(
                         holder.btnOpen.visibility = View.VISIBLE
 
                         holder.btnOpen.setOnClickListener {
-                            // Передаем контракт в навигационный контроллер
+
                             val action = contract.let {
                                 ResponseListFragmentDirections.actionResponseListFragmentToContractFragment(
                                     it
@@ -143,9 +143,7 @@ class ResponseAdapter(
             }
 
             override fun onFailure(call: Call<Contract>, t: Throwable) {
-                // Обработка ошибки при получении контракта
-                Log.d("jkl", "kl;")
-                //Toast.makeText(context, "Ошибка при получении контракта", Toast.LENGTH_SHORT).show()
+                Log.d("checkContractExistence", "checkContractExistence")
             }
         })
     }
@@ -162,12 +160,12 @@ class ResponseAdapter(
                     holder.tvStatus.text = status
 
                 } else {
-                    // Обработать ошибку
+                    Log.d("updateResponseStatus", "updateResponseStatus")
                 }
             }
 
             override fun onFailure(call: Call<ResponseApartment>, t: Throwable) {
-                // Обработать сбой запроса
+                Log.d("updateResponseStatus", "updateResponseStatus")
             }
         })
     }

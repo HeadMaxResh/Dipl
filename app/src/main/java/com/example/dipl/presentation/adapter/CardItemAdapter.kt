@@ -1,7 +1,6 @@
 package com.example.dipl.presentation.adapter
 
 import android.content.res.ColorStateList
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,12 +11,8 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.example.dipl.R
-import com.example.dipl.data.api.Api.userApiService
 import com.example.dipl.domain.model.ApartmentInfo
 import com.example.dipl.domain.model.User
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import java.io.File
 
 class CardItemAdapter(
@@ -65,7 +60,14 @@ class CardItemAdapter(
 
         val adapter = ImageSliderAdapter(images)
         holder.viewPager.adapter = adapter
-        holder.tvName.text = currentItem.name.toString()
+        //holder.tvName.text = currentItem.name.toString()
+        val commaIndex = currentItem.name.indexOf(',')
+        val truncatedName = if (commaIndex != -1) {
+            currentItem.name.substring(0, commaIndex)
+        } else {
+            currentItem.name
+        }
+        holder.tvName.text = truncatedName
         holder.tvCity.text = currentItem.city.toString()
         holder.tvRent.text = currentItem.rent.toString()
         holder.tvRate.text = currentItem.rate.toString()

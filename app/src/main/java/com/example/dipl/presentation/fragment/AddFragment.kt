@@ -192,6 +192,12 @@ class AddFragment : Fragment() {
             return true
         }
 
+        val cadastr = binding.etCadastr.text.toString().takeIf { it.isNotBlank() && it.length == 12
+        } ?: run {
+            showError("Введите корректный кадастровый номер")
+            return true
+        }
+
         user?.let {
             val apartmentInfoDto = ApartmentInfoDto(
                 name,
@@ -202,7 +208,8 @@ class AddFragment : Fragment() {
                 imagePaths,
                 countRooms,
                 it,
-                description
+                description,
+                cadastr
             )
             apartmentInfoViewModel.addApartment(apartmentInfoDto)
         }

@@ -2,30 +2,23 @@ package com.example.dipl.presentation.fragment
 
 import android.app.Activity
 import android.content.Intent
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Base64
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.content.ContextCompat
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.dipl.CircleTransformation
-import com.example.dipl.R
 import com.example.dipl.data.api.Api.userApiService
-import com.example.dipl.databinding.FragmentSettingsBinding
 import com.example.dipl.databinding.FragmentUserSettingsBinding
 import com.example.dipl.domain.dto.UpdatedUserDto
 import com.example.dipl.domain.model.User
 import com.example.dipl.presentation.PrefManager
-import com.example.dipl.presentation.PrefManager.updateUser
 import com.squareup.picasso.Picasso
 import retrofit2.Call
 import retrofit2.Callback
@@ -93,18 +86,19 @@ class UserSettingsFragment : Fragment() {
         return binding.root
     }
 
-    private val pickImageLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        if (result.resultCode == Activity.RESULT_OK) {
-            val data = result.data
-            selectedImageUri = data?.data
-            selectedImageUri?.let {
-                Picasso.get()
-                    .load(it)
-                    .transform(CircleTransformation())
-                    .into(userImage)
+    private val pickImageLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val data = result.data
+                selectedImageUri = data?.data
+                selectedImageUri?.let {
+                    Picasso.get()
+                        .load(it)
+                        .transform(CircleTransformation())
+                        .into(userImage)
+                }
             }
         }
-    }
 
     private fun saveByteArrayToInternalStorage(byteArray: ByteArray): String {
         val context = requireContext()
@@ -123,31 +117,43 @@ class UserSettingsFragment : Fragment() {
         return inputStream?.readBytes() ?: byteArrayOf()
     }
 
+    private fun isPhoneNumberValid(phoneNumber: String): Boolean {
+        val phonePattern = "^8[0-9]{10}$"
+        return phoneNumber.matches(Regex(phonePattern))
+    }
+
     private fun updateUser() {
-
-        val imagePaths = selectedImageUri?.let { getImageByteArrayFromUri(it) }?.let {
-            saveByteArrayToInternalStorage(
-                it
-            )
-        }
-
-        val updatedUserDto = UpdatedUserDto(
-            binding.etName.text.toString(),
-            binding.etSurname.text.toString(),
-            binding.etEmail.text.toString(),
-            binding.etNumber.text.toString(),
-            binding.etPassword.text.toString(),
-            imagePaths
-        )
-
         user?.let {
+            val imagePaths = selectedImageUri?.let { getImageByteArrayFromUri(it) }?.let {
+                saveByteArrayToInternalStorage(
+                    it
+                )
+            } ?: it.photoUser
+
+            val name = binding.etName.text.toString().takeIf { it.isNotEmpty() } ?: it.name
+            val surname = binding.etSurname.text.toString().takeIf { it.isNotEmpty() } ?: it.surname
+            val email = binding.etEmail.text.toString().takeIf { it.isNotEmpty() } ?: it.email
+            val phone = binding.etNumber.text.toString().takeIf { it.isNotEmpty() && isPhoneNumberValid(it) } ?: it.phone
+
+            val currentPassword = user?.password ?: ""
+            val newPassword =
+                binding.etPassword.text.toString().takeIf { it.isNotEmpty() } ?: currentPassword
+
+            val updatedUserDto = UpdatedUserDto(
+                name,
+                surname,
+                email,
+                phone,
+                newPassword,
+                imagePaths
+            )
+
             userApiService.updateUser(it.id, updatedUserDto).enqueue(object : Callback<User> {
                 override fun onResponse(call: Call<User>, response: Response<User>) {
                     if (response.isSuccessful) {
 
                         val updatedUser = response.body()
                         if (updatedUser != null) {
-                            // Обновляем пользователя в PrefManager
                             PrefManager.updateUser(requireContext(), updatedUser)
                             Toast.makeText(
                                 requireContext(),

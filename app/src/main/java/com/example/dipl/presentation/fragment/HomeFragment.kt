@@ -1,6 +1,7 @@
 package com.example.dipl.presentation.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -77,7 +78,6 @@ class HomeFragment : Fragment(), CardItemAdapter.OnItemClickListener {
             }
 
             override fun onQueryTextChange(newText: String): Boolean {
-                // Можно добавить логику для обработки изменений в тексте
                 return false
             }
         })
@@ -118,12 +118,12 @@ class HomeFragment : Fragment(), CardItemAdapter.OnItemClickListener {
                     progressIndicator.visibility = View.GONE
                     recyclerView.visibility = View.VISIBLE
                 } else {
-                    // Обработка ошибки
+                    Log.d("loadApartmentsFromApiWithFilter", "loadApartmentsFromApiWithFilter")
                 }
             }
 
             override fun onFailure(call: Call<List<ApartmentInfo>>, t: Throwable) {
-                // Обработка ошибки
+                Log.d("loadApartmentsFromApiWithFilter", "loadApartmentsFromApiWithFilter")
             }
         })
 
@@ -148,7 +148,7 @@ class HomeFragment : Fragment(), CardItemAdapter.OnItemClickListener {
                     progressIndicator.visibility = View.GONE
                     recyclerView.visibility = View.VISIBLE
                 } else {
-                    // Обработка ошибки
+                    Log.d("loadApartmentsFromApi", "loadApartmentsFromApi")
                 }
                 binding.swipeRefreshLayout.isRefreshing = false
             }
@@ -177,14 +177,14 @@ class HomeFragment : Fragment(), CardItemAdapter.OnItemClickListener {
                                 val isFavorite = response.body() ?: false
                                 apartmentInfo.isFavorite = isFavorite
                             } else {
-                                // Обработка ошибки
+                                Log.d("setApartmentIsFavorite", "setApartmentIsFavorite")
                             }
                             displayApartmentsInRecyclerView(list, recyclerView)
 
                         }
 
                         override fun onFailure(call: Call<Boolean>, t: Throwable) {
-                            // Обработка ошибки
+                            Log.d("setApartmentIsFavorite", "setApartmentIsFavorite")
                         }
                     })
             }
@@ -195,7 +195,9 @@ class HomeFragment : Fragment(), CardItemAdapter.OnItemClickListener {
         apartmentInfos: List<ApartmentInfo>,
         recyclerView: RecyclerView
     ) {
-        cardItemAdapter = CardItemAdapter(apartmentInfos, user)
+        val filteredApartments = apartmentInfos.filter { !it.hide }
+
+        cardItemAdapter = CardItemAdapter(filteredApartments , user)
         cardItemAdapter.setOnItemClickListener(this)
         recyclerView.adapter = cardItemAdapter
     }
@@ -223,7 +225,7 @@ class HomeFragment : Fragment(), CardItemAdapter.OnItemClickListener {
                     }
 
                     override fun onFailure(call: Call<Boolean>, t: Throwable) {
-                        TODO("Not yet implemented")
+                        Log.d("onAddToFavorites", "onAddToFavorites")
                     }
 
                 })
@@ -244,7 +246,7 @@ class HomeFragment : Fragment(), CardItemAdapter.OnItemClickListener {
                     }
 
                     override fun onFailure(call: Call<Boolean>, t: Throwable) {
-                        TODO("Not yet implemented")
+                        Log.d("onRemoveFromFavorites", "onRemoveFromFavorites")
                     }
 
 
@@ -266,13 +268,13 @@ class HomeFragment : Fragment(), CardItemAdapter.OnItemClickListener {
                     progressIndicator.visibility = View.GONE
                     recyclerView.visibility = View.VISIBLE
                 } else {
-                    // Обработка ошибки
+                    Log.d("searchApartmentsByName", "searchApartmentsByName")
                 }
                 binding.swipeRefreshLayout.isRefreshing = false
             }
 
             override fun onFailure(call: Call<List<ApartmentInfo>>, t: Throwable) {
-                // Обработка ошибки
+                Log.d("searchApartmentsByName", "searchApartmentsByName")
                 binding.swipeRefreshLayout.isRefreshing = false
             }
         })
