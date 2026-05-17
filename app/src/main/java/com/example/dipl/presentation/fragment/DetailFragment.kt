@@ -4,6 +4,7 @@ import android.content.res.ColorStateList
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -102,6 +103,30 @@ class DetailFragment : Fragment() {
 
         apartmentId = apartmentInfo?.id
 
+
+        responseApartmentApiService.getResponsesForApartmentOwner(user?.id ?: 0).enqueue(object : Callback<List<ResponseApartment>> {
+            override fun onResponse(call: Call<List<ResponseApartment>>, response: Response<List<ResponseApartment>>) {
+                if (response.isSuccessful) {
+                    val responseApartments = response.body()
+                    responseApartments?.let {
+                        val respondedToApartment = it.any { response -> response.id == apartmentId }
+                        if (respondedToApartment) {
+                            // Пользователь уже откликался на эту квартиру, скрываем кнопку btnResponse
+                            binding.btnResponse.visibility = View.GONE
+                        }
+                    }
+                } else {
+                    // Ошибка при получении списка откликов
+                    Log.e("DetailFragment", "Error fetching responses: ${response.message()}")
+                }
+            }
+
+            override fun onFailure(call: Call<List<ResponseApartment>>, t: Throwable) {
+                // Ошибка при выполнении запроса
+                Log.e("DetailFragment", "Error fetching responses: ${t.message}")
+            }
+        })
+
         apartmentId?.let { id ->
             apartmentInfoViewModel.getApartmentById(id)
         }
@@ -110,7 +135,7 @@ class DetailFragment : Fragment() {
             user?.id?.let { userId ->
                 apartmentId?.let { apartmentId ->
                     addResponseToApartment(apartmentId, userId)
-
+                    findNavController().navigateUp()
                 }
             }
 
@@ -118,6 +143,8 @@ class DetailFragment : Fragment() {
 
         if (apartmentInfo?.userOwner == PrefManager.getUser(requireContext())) {
             binding.btnResponse.visibility = View.GONE
+            binding.btnChat.visibility = View.GONE
+            binding.btnReview.visibility = View.GONE
         }
 
         apartmentId?.let { id ->
@@ -158,7 +185,6 @@ class DetailFragment : Fragment() {
             override fun onResponse(call: Call<Passport>, response: Response<Passport>) {
                 val passport = response.body()
                 if (passport != null) {
-                    // Паспорт найден, проверяем ЕИН
                     einApiService.getEinByUserId(userId).enqueue(object : Callback<Ein> {
                         override fun onResponse(call: Call<Ein>, response: Response<Ein>) {
                             val ein = response.body()
@@ -174,7 +200,6 @@ class DetailFragment : Fragment() {
                                         response: Response<ResponseApartment>
                                     ) {
                                         if (response.isSuccessful) {
-                                            // Обработка успешного ответа
                                         } else {
                                             showError("Не удалось отправить отклик")
                                         }
@@ -216,7 +241,17 @@ class DetailFragment : Fragment() {
                         .toMutableList()
                 val adapterDetail = ImageSliderAdapter(images)
                 binding.vpDetail.adapter = adapterDetail
-                binding.tvName.text = apartment.name
+                //binding.tvName.text = apartment.name
+
+                val commaIndex = apartment.name.indexOf(',')
+                val truncatedName = if (commaIndex != -1) {
+                    apartment.name.substring(0, commaIndex)
+                } else {
+                    apartment.name
+                }
+
+                binding.tvName.text = truncatedName
+
                 binding.tvCity.text = apartment.city
                 binding.tvRent.text = apartment.rent.toString()
                 binding.tvRate.text = apartment.rate.toString()

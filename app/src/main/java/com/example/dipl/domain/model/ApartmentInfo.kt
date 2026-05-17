@@ -16,7 +16,9 @@ data class ApartmentInfo(
     val userOwner: User,
     val description: String,
     val reviewList: MutableList<Review>? = Collections.emptyList(),
-    var isFavorite: Boolean = false
+    var isFavorite: Boolean = false,
+    val hide: Boolean = false,
+    val cadastr: String
 ) : Serializable {
     companion object {
 

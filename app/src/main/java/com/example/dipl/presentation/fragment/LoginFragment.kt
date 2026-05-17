@@ -69,6 +69,9 @@ class LoginFragment : Fragment() {
     private fun getResultEnter() {
         viewModel.enterResult.observe(viewLifecycleOwner) { result ->
             when (result) {
+                is LoginViewModel.LoginResult.ModerSuccess -> {
+                    navigateToModerScreen()
+                }
                 is LoginViewModel.LoginResult.Success -> {
                     navigateToHomeScreen()
                     //PrefManager.setLoggedInState(requireContext(), true)
@@ -85,7 +88,9 @@ class LoginFragment : Fragment() {
         findNavController().navigate(R.id.action_loginFragment_to_mainFragment)
     }
 
-
+    private fun navigateToModerScreen() {
+        findNavController().navigate(R.id.action_loginFragment_to_moderFragment)
+    }
 
     private fun showError(message: String) {
         Toast.makeText(requireContext(),message, Toast.LENGTH_SHORT).show()

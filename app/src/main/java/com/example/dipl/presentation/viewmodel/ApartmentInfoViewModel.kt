@@ -54,14 +54,12 @@ class ApartmentInfoViewModel() : ViewModel() {
                 if (response.isSuccessful) {
                     selectedApartment.value = response.body()
                 } else {
-                    // Обработка ошибки
                     val errorBody = response.errorBody()?.string()
                     Log.e("GetApartmentByIdError", "Error: $errorBody")
                 }
             }
 
             override fun onFailure(call: Call<ApartmentInfo>, t: Throwable) {
-                // Обработка ошибки
                 Log.e("GetApartmentByIdFailure", "Error: ${t.message}")
             }
         })
@@ -92,12 +90,12 @@ class ApartmentInfoViewModel() : ViewModel() {
                 if (response.isSuccessful) {
                     apartmentInfo.isFavorite = true
                 } else {
-                    // Handle unsuccessful response
+                    Log.d("addToFavorites", "addToFavorites")
                 }
             }
 
             override fun onFailure(call: Call<Boolean>, t: Throwable) {
-                // Handle failure
+                Log.d("addToFavorites", "addToFavorites")
             }
         })
     }
@@ -108,12 +106,12 @@ class ApartmentInfoViewModel() : ViewModel() {
                 if (response.isSuccessful && response.body() == true) {
                     apartmentInfo.isFavorite = false
                 } else {
-                    // Handle unsuccessful response
+                    Log.d("removeFromFavorites", "removeFromFavorites")
                 }
             }
 
             override fun onFailure(call: Call<Boolean>, t: Throwable) {
-                // Handle failure
+                Log.d("removeFromFavorites", "removeFromFavorites")
             }
         })
     }
@@ -125,16 +123,13 @@ class ApartmentInfoViewModel() : ViewModel() {
                     val isFavorite = response.body() ?: false
                     apartmentInfo.isFavorite = isFavorite
                     // Обработка полученного статуса избранного (isFavorite)
-                    // Можно обновить UI или сохранить статус в ApartmentInfo или другом месте по вашему усмотрению
                 } else {
-                    // Обработка неуспешного ответа
                     val errorBody = response.errorBody()?.string()
                     Log.e("CheckFavoriteError", "Error: $errorBody")
                 }
             }
 
             override fun onFailure(call: Call<Boolean>, t: Throwable) {
-                // Обработка ошибки при выполнении запроса
                 Log.e("CheckFavoriteFailure", "Error: ${t.message}")
             }
         })

@@ -1,6 +1,7 @@
 package com.example.dipl.presentation.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -62,15 +63,16 @@ class ChatFragment : Fragment(), ChatUserAdapter.OnChatClickListener {
                     if (response.isSuccessful) {
                         val userIds = response.body()
                         val userList = mutableListOf<User>()
+
                         getUsersFromUserIds(userIds, userList)
 
                     } else {
-                        // Обработка ошибки при получении списка userIds
+                        Log.d("getUserChatHistory", "getUserChatHistory")
                     }
                 }
 
                 override fun onFailure(call: Call<List<Int>>, t: Throwable) {
-                    // Обработка ошибки при выполнении запроса
+                    Log.d("getUserChatHistory", "getUserChatHistory")
                 }
             })
         }
@@ -85,21 +87,41 @@ class ChatFragment : Fragment(), ChatUserAdapter.OnChatClickListener {
                             val user = response.body()
                             user?.let {
                                 userList.add(user)
-                                // Проверка, если список пользователей уже содержит всех пользователей
                                 if (userList.size == userIds.size) {
                                     setChatAdapter(userList, recyclerView)
                                 }
                             }
                         } else {
-                            // Обработка ошибки при получении пользователя
+                            Log.d("getUsersFromUserIds", "getUsersFromUserIds")
                         }
                     }
 
                     override fun onFailure(call: Call<User>, t: Throwable) {
-                        // Обработка ошибки при выполнении запроса
+                        Log.d("getUsersFromUserIds", "getUsersFromUserIds")
                     }
                 })
             }
+        }
+        if (!userList.any { it.name == "Модерация" }) {
+            userApiService.getUserByName("Модерация").enqueue(object : Callback<User> {
+                override fun onResponse(call: Call<User>, response: Response<User>) {
+                    if (response.isSuccessful) {
+                        val moderationUser = response.body()
+                        moderationUser?.let {
+                            if (userList.size == userIds?.size) {
+                                userList.add(moderationUser)
+                                setChatAdapter(userList, recyclerView)
+                            }
+                        }
+                    } else {
+                        Log.d("getUsersFromUserIds", "getUsersFromUserIds")
+                    }
+                }
+
+                override fun onFailure(call: Call<User>, t: Throwable) {
+                    Log.d("getUsersFromUserIds", "getUsersFromUserIds")
+                }
+            })
         }
     }
 

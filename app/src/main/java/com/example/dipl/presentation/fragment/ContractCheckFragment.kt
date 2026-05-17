@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -77,16 +78,13 @@ class ContractCheckFragment : Fragment() {
                             }
                             action?.let { it1 -> holder.itemView.findNavController().navigate(it1) }*/
                             findNavController().navigateUp()
-                            //Toast.makeText(context, "Контракт успешно создан", Toast.LENGTH_SHORT).show()
                         } else {
-                            // Обработка ошибки при создании контракта
-                            //Toast.makeText(context, "Ошибка при создании контракта", Toast.LENGTH_SHORT).show()
+                            Log.d("btnCreateContract", "btnCreateContract")
                         }
                     }
 
                     override fun onFailure(call: Call<Contract>, t: Throwable) {
-                        // Обработка ошибки сети или запроса
-                        //Toast.makeText(context, "Ошибка сети", Toast.LENGTH_SHORT).show()
+                        Log.d("btnCreateContract", "btnCreateContract")
                     }
                 })
 
@@ -105,30 +103,29 @@ class ContractCheckFragment : Fragment() {
             override fun onResponse(call: Call<Passport>, response: Response<Passport>) {
                 if (response.isSuccessful) {
                     val passportOwner = response.body()
-                    // Установка ФИО и паспорта владельца квартиры в TextView
+
                     binding.fioOwner.text = "${passportOwner?.lastname} ${passportOwner?.name} ${passportOwner?.surname}"
                     binding.passportOwner.text = passportOwner?.toString()
                 }
             }
 
             override fun onFailure(call: Call<Passport>, t: Throwable) {
-                // Обработка ошибки при получении паспорта владельца квартиры
+                Log.d("setInfo", "setInfo")
             }
         })
 
-        // Получение паспорта пользователя (user)
         passportApiService.getPassportByUserId(args.user.id).enqueue(object : Callback<Passport> {
             override fun onResponse(call: Call<Passport>, response: Response<Passport>) {
                 if (response.isSuccessful) {
                     val passportUser = response.body()
-                    // Установка ФИО и паспорта пользователя в TextView
+
                     binding.fioUser.text = "${passportUser?.lastname} ${passportUser?.name} ${passportUser?.surname}"
                     binding.passportUser.text = passportUser?.toString()
                 }
             }
 
             override fun onFailure(call: Call<Passport>, t: Throwable) {
-                // Обработка ошибки при получении паспорта пользователя
+                Log.d("setInfo", "setInfo")
             }
         })
 

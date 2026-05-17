@@ -11,7 +11,8 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 
 object Api {
 
-    private const val BASE_URL = "http://192.168.0.2:8080"
+    //private const val BASE_URL = "http://192.168.0.2:8080"
+    private const val BASE_URL = "http://192.168.147.20:8080"
     //private const val BASE_URL = "http://192.168.154.243:8080"
     private const val USERNAME = "your_username"
     private const val PASSWORD = "your_password"

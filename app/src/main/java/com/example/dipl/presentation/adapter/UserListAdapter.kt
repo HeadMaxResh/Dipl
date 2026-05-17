@@ -17,7 +17,6 @@ class UserListAdapter(
     inner class UserListViewHolder(val view: View) : RecyclerView.ViewHolder(view)  {
         val usernameTextView: TextView = view.findViewById(R.id.userNameTextView)
         val userImageView: ImageView = view.findViewById(R.id.userProfileImageView)
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserListViewHolder {

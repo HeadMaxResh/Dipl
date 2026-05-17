@@ -45,7 +45,6 @@ class ReviewSliderAdapter(private val reviews: MutableList<Review>): RecyclerVie
             tvFlawsText.text = review.flawsText
             tvCommentText.text = review.commentText
 
-
         }
     }
 }

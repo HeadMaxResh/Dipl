@@ -111,7 +111,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:text="Название"
+                android:text="Адрес"
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -121,8 +121,8 @@
                 android:id="@+id/et_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Название"
-                android:inputType="number" />
+                android:hint="Адрес"
+                android:inputType="text" />
 
         </LinearLayout>
 
@@ -338,7 +338,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Описание"
-                android:inputType="number" />
+                android:inputType="text" />
 
         </LinearLayout>
 
@@ -356,12 +356,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:text="Выписка из егрн"
+                android:text="Кадастровый номер"
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
-            <ImageView
+            <!--<ImageView
                 android:id="@+id/add_egrn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -371,7 +371,14 @@
                 android:src="@drawable/ic_add_images"
                 android:textColor="@color/dark_gray"
                 android:textSize="14sp"
-                android:translationZ="2dp" />
+                android:translationZ="2dp" />-->
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_cadastr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Кадастровый номер"
+                android:inputType="number" />
 
         </LinearLayout>
 

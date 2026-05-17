@@ -43,6 +43,9 @@
             android:id="@+id/action_loginFragment_to_mainFragment"
             app:destination="@id/mainFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_loginFragment_to_moderFragment"
+            app:destination="@id/moderFragment" />
     </fragment>
     <fragment
         android:id="@+id/registrationFragment"
@@ -53,4 +56,90 @@
             android:id="@+id/action_registrationFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/moderFragment"
+        android:name="com.example.dipl.presentation.fragment.ModerFragment"
+        android:label="fragment_moder"
+        tools:layout="@layout/fragment_moder" >
+        <action
+            android:id="@+id/action_moderFragment_to_moderApartmentListFragment"
+            app:destination="@id/moderApartmentListFragment" />
+        <action
+            android:id="@+id/action_moderFragment_to_moderChatFragment"
+            app:destination="@id/moderChatFragment" />
+        <action
+            android:id="@+id/action_moderFragment_to_moderContractListFragment"
+            app:destination="@id/moderContractListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/moderApartmentListFragment"
+        android:name="com.example.dipl.presentation.fragment.ModerApartmentListFragment"
+        android:label="fragment_moder_apartment_list"
+        tools:layout="@layout/fragment_moder_apartment_list" >
+        <action
+            android:id="@+id/action_moderApartmentListFragment_to_moderDetailFragment"
+            app:destination="@id/moderDetailFragment" />
+        <action
+            android:id="@+id/action_moderApartmentListFragment_to_dialogFragment"
+            app:destination="@id/dialogFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/moderDetailFragment"
+        android:name="com.example.dipl.presentation.fragment.ModerDetailFragment"
+        android:label="ModerDetailFragment" >
+        <argument
+            android:name="apartmentInfo"
+            app:argType="com.example.dipl.domain.model.ApartmentInfo" />
+        <action
+            android:id="@+id/action_moderDetailFragment_to_chatDetailFragment2"
+            app:destination="@id/chatDetailFragment2" />
+        <action
+            android:id="@+id/action_moderDetailFragment_to_dialogFragment"
+            app:destination="@id/dialogFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/moderChatFragment"
+        android:name="com.example.dipl.presentation.fragment.ModerChatFragment"
+        android:label="fragment_moder_chat"
+        tools:layout="@layout/fragment_moder_chat" >
+        <action
+            android:id="@+id/action_moderChatFragment_to_chatDetailFragment2"
+            app:destination="@id/chatDetailFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/chatDetailFragment2"
+        android:name="com.example.dipl.presentation.fragment.ChatDetailFragment"
+        android:label="fragment_chat_detail"
+        tools:layout="@layout/fragment_chat_detail" >
+        <argument
+            android:name="user"
+            app:argType="com.example.dipl.domain.model.User" />
+    </fragment>
+    <fragment
+        android:id="@+id/moderContractListFragment"
+        android:name="com.example.dipl.presentation.fragment.ModerContractListFragment"
+        android:label="fragment_moder_contract_list"
+        tools:layout="@layout/fragment_moder_contract_list" >
+        <action
+            android:id="@+id/action_moderContractListFragment_to_contractFragment2"
+            app:destination="@id/contractFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/contractFragment2"
+        android:name="com.example.dipl.presentation.fragment.ContractFragment"
+        android:label="fragment_contract"
+        tools:layout="@layout/fragment_contract" >
+        <argument
+            android:name="contract"
+            app:argType="com.example.dipl.domain.model.Contract" />
+    </fragment>
+    <dialog
+        android:id="@+id/dialogFragment"
+        android:name="com.example.dipl.presentation.fragment.DialogFragment"
+        android:label="fragment_dialog"
+        tools:layout="@layout/fragment_dialog" >
+        <argument
+            android:name="apartmentId"
+            app:argType="integer" />
+    </dialog>
 </navigation>
