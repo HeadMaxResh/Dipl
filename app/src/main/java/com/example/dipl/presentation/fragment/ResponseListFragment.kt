@@ -9,15 +9,11 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.dipl.R
 import com.example.dipl.data.api.Api.responseApartmentApiService
-import com.example.dipl.databinding.FragmentMyApartmentsBinding
 import com.example.dipl.databinding.FragmentResponseListBinding
-import com.example.dipl.domain.model.ApartmentInfo
 import com.example.dipl.domain.model.ResponseApartment
 import com.example.dipl.domain.model.User
 import com.example.dipl.presentation.PrefManager
-import com.example.dipl.presentation.adapter.CardItemAdapter
 import com.example.dipl.presentation.adapter.ResponseAdapter
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import retrofit2.Call

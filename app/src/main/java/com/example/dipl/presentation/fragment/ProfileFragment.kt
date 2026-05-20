@@ -1,19 +1,15 @@
 package com.example.dipl.presentation.fragment
 
-import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Log
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.PopupWindow
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.diplback.diplserver.model.Review
 import com.example.dipl.CircleTransformation
-import com.example.dipl.R
 import com.example.dipl.data.api.Api.apartmentInfoApiService
 import com.example.dipl.data.api.Api.userApiService
 import com.example.dipl.databinding.FragmentProfileBinding
@@ -27,8 +23,6 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.File
-import java.net.HttpURLConnection
-import java.net.URL
 
 
 class ProfileFragment : Fragment() {

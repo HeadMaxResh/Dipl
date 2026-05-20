@@ -8,14 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.example.dipl.R
 import com.example.dipl.data.api.Api
 import com.example.dipl.databinding.FragmentModerApartmentListBinding
-import com.example.dipl.databinding.FragmentSettingsBinding
 import com.example.dipl.domain.model.ApartmentInfo
 import com.example.dipl.domain.model.User
 import com.example.dipl.presentation.PrefManager
-import com.example.dipl.presentation.adapter.CardItemAdapter
 import com.example.dipl.presentation.adapter.ModerCardItemAdapter
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import retrofit2.Call

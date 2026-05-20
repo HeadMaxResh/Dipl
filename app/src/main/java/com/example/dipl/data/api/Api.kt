@@ -8,16 +8,20 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import java.util.concurrent.TimeUnit
 
 object Api {
 
     //private const val BASE_URL = "http://192.168.0.2:8080"
-    private const val BASE_URL = "http://192.168.147.20:8080"
+    private const val BASE_URL = "http://192.168.0.60:8080"
     //private const val BASE_URL = "http://192.168.154.243:8080"
     private const val USERNAME = "your_username"
     private const val PASSWORD = "your_password"
 
     private val okHttpClient: OkHttpClient = OkHttpClient.Builder()
+        .connectTimeout(60, TimeUnit.SECONDS)
+        .readTimeout(120, TimeUnit.SECONDS)
+        .writeTimeout(120, TimeUnit.SECONDS)
         .connectionSpecs(listOf(ConnectionSpec.CLEARTEXT))
         .addInterceptor(HeaderInterceptor(USERNAME, PASSWORD))
         .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
@@ -60,4 +64,6 @@ object Api {
         retrofit.create(ResponseApartmentApiService::class.java)
     val contractApiService: ContractApiService =
         retrofit.create(ContractApiService::class.java)
+    val analysisApiService: ApartmentAnalysisApiService =
+        retrofit.create(ApartmentAnalysisApiService::class.java)
 }

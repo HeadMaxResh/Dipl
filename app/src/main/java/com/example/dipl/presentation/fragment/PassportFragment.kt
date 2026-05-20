@@ -2,8 +2,6 @@ package com.example.dipl.presentation.fragment
 
 import android.os.Bundle
 import android.util.Log
-import android.view.Gravity
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +13,6 @@ import com.example.dipl.R
 import com.example.dipl.data.api.Api.passportApiService
 import com.example.dipl.data.api.Api.userApiService
 import com.example.dipl.databinding.FragmentPassportBinding
-import com.example.dipl.databinding.FragmentResponseListBinding
 import com.example.dipl.domain.dto.PassportDto
 import com.example.dipl.domain.model.User
 import com.example.dipl.presentation.PrefManager

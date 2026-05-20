@@ -11,7 +11,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.dipl.R
 import com.example.dipl.databinding.FragmentLoginBinding
-import com.example.dipl.presentation.PrefManager
 import com.example.dipl.presentation.viewmodel.LoginViewModel
 
 

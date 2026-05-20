@@ -4,15 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.RatingBar
-import android.widget.RatingBar.OnRatingBarChangeListener
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.example.dipl.R
-import com.example.dipl.data.api.service.ApartmentInfoApiService
-import com.example.dipl.databinding.FragmentAddBinding
 import com.example.dipl.databinding.FragmentNewReviewBinding
 import com.example.dipl.domain.dto.ReviewDto
 import com.example.dipl.presentation.PrefManager

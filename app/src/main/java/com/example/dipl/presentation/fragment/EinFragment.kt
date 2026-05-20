@@ -1,25 +1,19 @@
 package com.example.dipl.presentation.fragment
 
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.databinding.adapters.TextViewBindingAdapter.setText
 import androidx.fragment.app.DialogFragment
 import androidx.navigation.fragment.findNavController
 import com.diplback.diplserver.model.Ein
-import com.diplback.diplserver.model.Passport
 import com.example.dipl.R
 import com.example.dipl.data.api.Api
 import com.example.dipl.data.api.Api.einApiService
 import com.example.dipl.databinding.FragmentEinBinding
-import com.example.dipl.databinding.FragmentResponseListBinding
 import com.example.dipl.domain.dto.EinDto
-import com.example.dipl.domain.dto.PassportDto
 import com.example.dipl.domain.model.User
 import com.example.dipl.presentation.PrefManager
 import retrofit2.Call
