@@ -3,4 +3,12 @@
     <style name="SlideInFromTopAnimation">
         <item name="android:windowEnterAnimation">@anim/slide_in_from_top</item>
     </style>
+    <style name="AddRoomRadio">
+        <item name="android:layout_width">48dp</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:button">@null</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:background">@drawable/custom_radio_button_selector</item>
+    </style>
 </resources>

@@ -78,4 +78,6 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:3.0.0'
 
     implementation 'com.itextpdf:itext7-core:7.1.15'
+
+    implementation 'com.google.code.gson:gson:2.10.1'
 }

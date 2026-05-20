@@ -1,7 +1,6 @@
 package com.example.dipl.presentation
 
 import android.content.Context
-import android.content.SharedPreferences
 import com.example.dipl.domain.model.User
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi

@@ -73,9 +73,49 @@
     </fragment>
     <fragment
         android:id="@+id/addFragment"
-        android:name="com.example.dipl.presentation.fragment.AddFragment"
-        android:label="fragment_add"
-        tools:layout="@layout/fragment_add" />
+        android:name="com.example.dipl.presentation.fragment.AddPhotosFragment"
+        android:label="Добавление фото"
+        tools:layout="@layout/fragment_add_photos">
+
+        <action
+            android:id="@+id/action_addPhotosFragment_to_addAddressFragment"
+            app:destination="@id/addAddressFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/addAddressFragment"
+        android:name="com.example.dipl.presentation.fragment.AddAddressFragment"
+        android:label="Адрес"
+        tools:layout="@layout/fragment_add_address">
+
+        <action
+            android:id="@+id/action_addAddressFragment_to_addDescriptionFragment"
+            app:destination="@id/addDescriptionFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/addDescriptionFragment"
+        android:name="com.example.dipl.presentation.fragment.AddDescriptionFragment"
+        android:label="Описание"
+        tools:layout="@layout/fragment_add_description">
+
+        <action
+            android:id="@+id/action_addDescriptionFragment_to_apartmentPriceSummaryFragment"
+            app:destination="@id/apartmentPriceSummaryFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/apartmentPriceSummaryFragment"
+        android:name="com.example.dipl.presentation.fragment.ApartmentPriceSummaryFragment"
+        android:label="Рекомендованная цена"
+        tools:layout="@layout/fragment_apartment_price_summary">
+
+        <action
+            android:id="@+id/action_apartmentPriceSummaryFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="false" />
+    </fragment>
     <fragment
         android:id="@+id/chatFragment"
         android:name="com.example.dipl.presentation.fragment.ChatFragment"

@@ -9,17 +9,13 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.dipl.R
 import com.example.dipl.data.api.Api
 import com.example.dipl.databinding.FragmentContractListBinding
-import com.example.dipl.databinding.FragmentEinBinding
-import com.example.dipl.databinding.FragmentProfileBinding
 import com.example.dipl.domain.model.Contract
 import com.example.dipl.domain.model.ResponseApartment
 import com.example.dipl.domain.model.User
 import com.example.dipl.presentation.PrefManager
 import com.example.dipl.presentation.adapter.ContractAdapter
-import com.example.dipl.presentation.adapter.ResponseSendAdapter
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import retrofit2.Call
 import retrofit2.Callback

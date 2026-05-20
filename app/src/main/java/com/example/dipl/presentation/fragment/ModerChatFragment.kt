@@ -9,10 +9,8 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.dipl.R
 import com.example.dipl.data.api.Api
 import com.example.dipl.data.api.Api.userApiService
-import com.example.dipl.databinding.FragmentChatBinding
 import com.example.dipl.databinding.FragmentModerChatBinding
 import com.example.dipl.domain.model.User
 import com.example.dipl.presentation.PrefManager

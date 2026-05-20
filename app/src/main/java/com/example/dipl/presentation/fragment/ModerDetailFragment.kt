@@ -9,12 +9,9 @@ import android.widget.ScrollView
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.dipl.CircleTransformation
-import com.example.dipl.R
-import com.example.dipl.databinding.FragmentModerApartmentListBinding
 import com.example.dipl.databinding.FragmentModerDetailBinding
 import com.example.dipl.domain.model.ApartmentInfo
 import com.example.dipl.domain.model.User
