@@ -15,9 +15,11 @@ import com.example.dipl.data.api.Api.analysisApiService
 import com.example.dipl.databinding.FragmentApartmentPriceSummaryBinding
 import com.example.dipl.domain.dto.ApartmentInfoDto
 import com.example.dipl.domain.model.User
+import com.example.dipl.domain.request.CalculateFromAnalysisRequest
 import com.example.dipl.presentation.PrefManager
 import com.example.dipl.presentation.toPhotoPart
 import com.example.dipl.presentation.utils.toJsonObject
+import com.example.dipl.presentation.utils.toJsonRequestBody
 import com.example.dipl.presentation.utils.toTextBody
 import com.example.dipl.presentation.viewmodel.AddApartmentSharedViewModel
 import com.example.dipl.presentation.viewmodel.ApartmentInfoViewModel
@@ -79,12 +81,25 @@ class ApartmentPriceSummaryFragment : Fragment() {
 
         setLoading(true)
 
-        analysisApiService.evaluateApartment(
-            description = sharedViewModel.description.toTextBody(),
-            address = sharedViewModel.fullAddress().toTextBody(),
-            rooms = sharedViewModel.rooms.toString().toTextBody(),
-            area = sharedViewModel.area.toString().toTextBody(),
-            photos = photoParts
+        /*val request = CalculateFromAnalysisRequest(
+            area = sharedViewModel.area,
+            rooms = sharedViewModel.rooms,
+            textAnalysis = sharedViewModel.textAnalysis!!,
+            imageAnalysis = sharedViewModel.imageAnalysis!!,
+            geoAnalysis = sharedViewModel.geoAnalysis!!
+        )*/
+
+        val requestJson = JsonObject().apply {
+            addProperty("area", sharedViewModel.area)
+            addProperty("rooms", sharedViewModel.rooms)
+
+            add("textAnalysis", sharedViewModel.textAnalysis)
+            add("imageAnalysis", sharedViewModel.imageAnalysis)
+            add("geoAnalysis", sharedViewModel.geoAnalysis)
+        }
+
+        analysisApiService.calculateFromAnalysis(
+            requestJson.toJsonRequestBody()
         ).enqueue(object : Callback<ResponseBody> {
 
             override fun onResponse(
@@ -113,6 +128,33 @@ class ApartmentPriceSummaryFragment : Fragment() {
                 showError("Ошибка подключения: ${t.message}")
             }
         })
+
+        /*analysisApiService.calculateFromAnalysis(request)
+            .enqueue(object : Callback<ResponseBody> {
+
+                override fun onResponse(
+                    call: Call<ResponseBody>,
+                    response: Response<ResponseBody>
+                ) {
+                    setLoading(false)
+
+                    val body = response.body()
+
+                    if (response.isSuccessful && body != null) {
+                        val json = body.toJsonObject()
+
+                        sharedViewModel.priceAnalysis = json
+                        renderPriceResult(json)
+                    } else {
+                        showError("Не удалось рассчитать стоимость")
+                    }
+                }
+
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                    setLoading(false)
+                    showError("Ошибка подключения: ${t.message}")
+                }
+            })*/
     }
 
     private fun renderPriceResult(json: JsonObject) {

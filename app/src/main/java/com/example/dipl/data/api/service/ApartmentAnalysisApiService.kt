@@ -1,5 +1,6 @@
 package com.example.dipl.data.api.service
 
+import com.example.dipl.domain.request.CalculateFromAnalysisRequest
 import com.google.gson.JsonObject
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -8,6 +9,11 @@ import retrofit2.Call
 import retrofit2.http.*
 
 interface ApartmentAnalysisApiService {
+
+    @POST("api/apartments/calculate-from-analysis")
+    fun calculateFromAnalysis(
+        @Body request: RequestBody
+    ): Call<ResponseBody>
 
     @Multipart
     @POST("api/apartments/analyze-photos")
