@@ -136,13 +136,20 @@ class AddAddressFragment : Fragment() {
         sharedViewModel.area = area
         sharedViewModel.cadastr = cadastr
 
-        analyzeLocation(sharedViewModel.fullAddress())
+        analyzeLocation(
+            sharedViewModel.fullAddress(),
+            sharedViewModel.rooms,
+            sharedViewModel.area)
     }
 
-    private fun analyzeLocation(fullAddress: String) {
+    private fun analyzeLocation(fullAddress: String, rooms: Int, area: Float) {
         setLoading(true)
 
-        analysisApiService.analyzeLocation(fullAddress)
+        analysisApiService.analyzeLocation(
+            fullAddress,
+            rooms,
+            area.toDouble()
+        )
             .enqueue(object : Callback<ResponseBody> {
 
                 override fun onResponse(
@@ -163,7 +170,7 @@ class AddAddressFragment : Fragment() {
                             message = buildGeoAnalysisMessage(json)
                         ) {
                             findNavController().navigate(
-                                R.id.action_addAddressFragment_to_addDescriptionFragment
+                                R.id.action_addAddressFragment_to_geoAnalysisResultFragment
                             )
                         }
                     } else {

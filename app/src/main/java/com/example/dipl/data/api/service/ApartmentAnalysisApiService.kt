@@ -24,7 +24,9 @@ interface ApartmentAnalysisApiService {
     @FormUrlEncoded
     @POST("api/apartments/analyze-location")
     fun analyzeLocation(
-        @Field("address") address: String
+        @Field("address") address: String,
+        @Field("rooms") rooms: Int,
+        @Field("area") area: Double
     ): Call<ResponseBody>
 
     @FormUrlEncoded
