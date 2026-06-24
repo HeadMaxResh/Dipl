@@ -98,7 +98,7 @@ class AddDescriptionFragment : Fragment() {
                             message = buildTextAnalysisMessage(json)
                         ) {
                             findNavController().navigate(
-                                R.id.action_addDescriptionFragment_to_apartmentPriceSummaryFragment
+                                R.id.action_addDescriptionFragment_to_textAnalysisResultFragment
                             )
                         }
                     } else {

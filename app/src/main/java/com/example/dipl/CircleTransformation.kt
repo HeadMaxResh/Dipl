@@ -2,6 +2,7 @@ package com.example.dipl
 
 import android.graphics.*
 import com.squareup.picasso.Transformation
+import androidx.core.graphics.createBitmap
 
 class CircleTransformation : Transformation {
     override fun transform(source: Bitmap): Bitmap {
@@ -15,7 +16,9 @@ class CircleTransformation : Transformation {
             source.recycle()
         }
 
-        val bitmap = Bitmap.createBitmap(size, size, source.config)
+        val config = source.config ?: Bitmap.Config.ARGB_8888
+
+        val bitmap = createBitmap(size, size, config)
 
         val canvas = Canvas(bitmap)
         val paint = Paint()

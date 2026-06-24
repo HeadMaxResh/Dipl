@@ -80,7 +80,15 @@
         <action
             android:id="@+id/action_addPhotosFragment_to_addAddressFragment"
             app:destination="@id/addAddressFragment" />
+        <action
+            android:id="@+id/action_addFragment_to_photoAnalysisResultFragment"
+            app:destination="@id/photoAnalysisResultFragment" />
     </fragment>
+
+    <!--<fragment
+        android:id="@+id/addFragment"
+        android:name="com.example.dipl.presentation.fragment.screen.AddApartmentFlowFragment"
+        android:label="add_apartment_flow" />-->
 
     <fragment
         android:id="@+id/addAddressFragment"
@@ -91,6 +99,9 @@
         <action
             android:id="@+id/action_addAddressFragment_to_addDescriptionFragment"
             app:destination="@id/addDescriptionFragment" />
+        <action
+            android:id="@+id/action_addAddressFragment_to_geoAnalysisResultFragment"
+            app:destination="@id/geoAnalysisResultFragment" />
     </fragment>
 
     <fragment
@@ -102,6 +113,9 @@
         <action
             android:id="@+id/action_addDescriptionFragment_to_apartmentPriceSummaryFragment"
             app:destination="@id/apartmentPriceSummaryFragment" />
+        <action
+            android:id="@+id/action_addDescriptionFragment_to_textAnalysisResultFragment"
+            app:destination="@id/textAnalysisResultFragment" />
     </fragment>
 
     <fragment
@@ -357,4 +371,32 @@
             android:name="user"
             app:argType="com.example.dipl.domain.model.User" />
     </fragment>
+    <fragment
+        android:id="@+id/photoAnalysisResultFragment"
+        android:name="com.example.dipl.presentation.fragment.PhotoAnalysisResultFragment"
+        android:label="fragment_photo_analysis_result"
+        tools:layout="@layout/fragment_photo_analysis_result" >
+        <action
+            android:id="@+id/action_photoAnalysisResultFragment_to_addAddressFragment"
+            app:destination="@id/addAddressFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/geoAnalysisResultFragment"
+        android:name="com.example.dipl.presentation.fragment.GeoAnalysisResultFragment"
+        android:label="fragment_geo_analysis_result"
+        tools:layout="@layout/fragment_geo_analysis_result" >
+        <action
+            android:id="@+id/action_geoAnalysisResultFragment_to_addDescriptionFragment"
+            app:destination="@id/addDescriptionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/textAnalysisResultFragment"
+        android:name="com.example.dipl.presentation.fragment.TextAnalysisResultFragment"
+        android:label="fragment_text_analysis_result"
+        tools:layout="@layout/fragment_text_analysis_result" >
+        <action
+            android:id="@+id/action_textAnalysisResultFragment_to_apartmentPriceSummaryFragment"
+            app:destination="@id/apartmentPriceSummaryFragment" />
+    </fragment>
+
 </navigation>

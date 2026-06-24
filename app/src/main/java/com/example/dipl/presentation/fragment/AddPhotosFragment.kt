@@ -133,7 +133,7 @@ class AddPhotosFragment : Fragment() {
                             message = buildImageAnalysisMessage(json)
                         ) {
                             findNavController().navigate(
-                                R.id.action_addPhotosFragment_to_addAddressFragment
+                                R.id.action_addFragment_to_photoAnalysisResultFragment
                             )
                         }
                     } else {
