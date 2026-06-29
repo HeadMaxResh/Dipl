@@ -128,14 +128,14 @@ class AddPhotosFragment : Fragment() {
 
                         sharedViewModel.imageAnalysis = json
 
-                        showAnalysisDialog(
+                        /*showAnalysisDialog(
                             title = "Анализ фотографий",
                             message = buildImageAnalysisMessage(json)
-                        ) {
+                        ) {*/
                             findNavController().navigate(
                                 R.id.action_addFragment_to_photoAnalysisResultFragment
                             )
-                        }
+                        /*}*/
                     } else {
                         showError("Не удалось выполнить анализ фотографий")
                     }

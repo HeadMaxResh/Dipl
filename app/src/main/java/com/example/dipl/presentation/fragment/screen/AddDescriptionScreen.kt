@@ -91,7 +91,7 @@ fun AddDescriptionScreen(
     if (showDialog) {
         val text = state.textAnalysis
 
-        AlertDialog(
+        /*AlertDialog(
             onDismissRequest = {},
             title = { Text("Анализ описания") },
             text = {
@@ -117,6 +117,6 @@ fun AddDescriptionScreen(
                     Text("Продолжить")
                 }
             }
-        )
+        )*/
     }
 }

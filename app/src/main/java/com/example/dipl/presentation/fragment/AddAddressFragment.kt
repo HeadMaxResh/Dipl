@@ -165,14 +165,14 @@ class AddAddressFragment : Fragment() {
 
                         sharedViewModel.geoAnalysis = json
 
-                        showAnalysisDialog(
+                        /*showAnalysisDialog(
                             title = "Геоанализ адреса",
                             message = buildGeoAnalysisMessage(json)
-                        ) {
+                        ) {*/
                             findNavController().navigate(
                                 R.id.action_addAddressFragment_to_geoAnalysisResultFragment
                             )
-                        }
+                        /*}*/
                     } else {
                         showError("Не удалось выполнить геоанализ")
                     }
