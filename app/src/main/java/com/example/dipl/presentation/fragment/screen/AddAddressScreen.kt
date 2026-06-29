@@ -137,7 +137,7 @@ fun AddAddressScreen(
     if (showDialog) {
         val geo = state.geoAnalysis
 
-        AlertDialog(
+        /*AlertDialog(
             onDismissRequest = {},
             title = { Text("Геоанализ") },
             text = {
@@ -163,6 +163,6 @@ fun AddAddressScreen(
                     Text("Продолжить")
                 }
             }
-        )
+        )*/
     }
 }

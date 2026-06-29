@@ -2,18 +2,20 @@ package com.example.dipl.presentation.fragment
 
 import android.graphics.Typeface
 import android.os.Bundle
+import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.dipl.R
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.example.dipl.R
 import com.example.dipl.databinding.FragmentGeoAnalysisResultBinding
 import com.example.dipl.presentation.viewmodel.AddApartmentSharedViewModel
 import com.google.gson.JsonArray
+import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 
 class GeoAnalysisResultFragment : Fragment() {
@@ -45,15 +47,16 @@ class GeoAnalysisResultFragment : Fragment() {
         }
 
         binding.btnBackToForm.setOnClickListener {
-            findNavController().popBackStack(
-                R.id.addAddressFragment,
-                false
-            )
+            findNavController().popBackStack(R.id.addAddressFragment, false)
         }
     }
 
     private fun renderResult() {
-        val json = sharedViewModel.geoAnalysis ?: run {
+        binding.llContent.removeAllViews()
+
+        val json = sharedViewModel.geoAnalysis
+
+        if (json == null) {
             addCard(
                 title = "Нет данных",
                 value = "Результат геоанализа отсутствует. Вернитесь к форме адреса и выполните анализ снова."
@@ -61,21 +64,21 @@ class GeoAnalysisResultFragment : Fragment() {
             return
         }
 
-        val address = json.get("address")?.asString ?: sharedViewModel.fullAddress()
-        val qualityLevel = json.get("qualityLevel")?.asString ?: "-"
-        val coordinates = json.getAsJsonObject("coordinates")
-        val lat = coordinates?.get("lat")?.asString ?: "-"
-        val lon = coordinates?.get("lon")?.asString ?: "-"
+        val address = json.safeString("address", sharedViewModel.fullAddress())
+        val qualityLevel = json.safeString("qualityLevel")
+        val coordinates = json.safeObject("coordinates")
+        val lat = coordinates.safeString("lat")
+        val lon = coordinates.safeString("lon")
 
         addCard(
             title = "Адрес",
             value = """
-                $address
-                
-                Координаты:
-                широта: $lat
-                долгота: $lon
-            """.trimIndent()
+|$address
+|
+|Координаты:
+|широта: $lat
+|долгота: $lon
+""".trimMargin()
         )
 
         addCard(
@@ -91,124 +94,122 @@ class GeoAnalysisResultFragment : Fragment() {
     }
 
     private fun renderScores(json: JsonObject) {
-        val scores = json.getAsJsonObject("scores")
+        val scores = json.safeObject("scores")
 
         addCard(
             title = "Оценки по категориям",
             value = """
-                Итоговая оценка: ${scores?.get("locationScore")?.asString ?: "-"}
-                Транспорт: ${scores?.get("transportScore")?.asString ?: "-"}
-                Образование: ${scores?.get("educationScore")?.asString ?: "-"}
-                Медицина: ${scores?.get("healthcareScore")?.asString ?: "-"}
-                Магазины и сервисы: ${scores?.get("commercialScore")?.asString ?: "-"}
-                Комфорт: ${scores?.get("comfortScore")?.asString ?: "-"}
-                Трафик: ${scores?.get("trafficScore")?.asString ?: "-"}
-            """.trimIndent()
+|Итоговая оценка: ${scores.safeString("locationScore")}
+|Транспорт: ${scores.safeString("transportScore")}
+|Образование: ${scores.safeString("educationScore")}
+|Медицина: ${scores.safeString("healthcareScore")}
+|Магазины и сервисы: ${scores.safeString("commercialScore")}
+|Комфорт: ${scores.safeString("comfortScore")}
+|Трафик: ${scores.safeString("trafficScore")}
+""".trimMargin()
         )
     }
 
     private fun renderNearestInfrastructure(json: JsonObject) {
-        val nearest = json.getAsJsonObject("nearestInfrastructure")
+        val nearest = json.safeObject("nearestInfrastructure")
 
         addCard(
             title = "Ближайший транспорт",
             value = """
-                Автобус / маршрутка:
-                ${formatObjects(nearest?.getAsJsonArray("busStops"))}
-                
-                Трамвай:
-                ${formatObjects(nearest?.getAsJsonArray("tramStops"))}
-                
-                Метро:
-                ${formatObjects(nearest?.getAsJsonArray("metroStations"))}
-            """.trimIndent()
+|Автобус / маршрутка:
+|${formatObjects(nearest.safeArray("busStops"))}
+|
+|Трамвай:
+|${formatObjects(nearest.safeArray("tramStops"))}
+|
+|Метро:
+|${formatObjects(nearest.safeArray("metroStations"))}
+""".trimMargin()
         )
 
         addCard(
             title = "Социальная инфраструктура",
             value = """
-                Школы:
-                ${formatObjects(nearest?.getAsJsonArray("schools"))}
-                
-                Детские сады:
-                ${formatObjects(nearest?.getAsJsonArray("kindergartens"))}
-                
-                Больницы:
-                ${formatObjects(nearest?.getAsJsonArray("hospitals"))}
-                
-                Поликлиники / клиники:
-                ${formatObjects(nearest?.getAsJsonArray("clinics"))}
-            """.trimIndent()
+|Школы:
+|${formatObjects(nearest.safeArray("schools"))}
+|
+|Детские сады:
+|${formatObjects(nearest.safeArray("kindergartens"))}
+|
+|Больницы:
+|${formatObjects(nearest.safeArray("hospitals"))}
+|
+|Поликлиники / клиники:
+|${formatObjects(nearest.safeArray("clinics"))}
+""".trimMargin()
         )
 
         addCard(
             title = "Магазины, парки и парковки",
             value = """
-                Магазины:
-                ${formatObjects(nearest?.getAsJsonArray("shops"))}
-                
-                Аптеки:
-                ${formatObjects(nearest?.getAsJsonArray("pharmacies"))}
-                
-                Парки:
-                ${formatObjects(nearest?.getAsJsonArray("parks"))}
-                
-                Парковки:
-                ${formatObjects(nearest?.getAsJsonArray("parking"))}
-            """.trimIndent()
+|Магазины:
+|${formatObjects(nearest.safeArray("shops"))}
+|
+|Аптеки:
+|${formatObjects(nearest.safeArray("pharmacies"))}
+|
+|Парки:
+|${formatObjects(nearest.safeArray("parks"))}
+|
+|Парковки:
+|${formatObjects(nearest.safeArray("parking"))}
+""".trimMargin()
         )
     }
 
     private fun renderMarketAnalysis(json: JsonObject) {
-        val market = json.getAsJsonObject("marketAnalysis") ?: return
+        val market = json.safeObject("marketAnalysis") ?: return
 
-        val source = market.get("marketSource")?.asString ?: "-"
-        val basePrice = market.get("marketBasePrice")?.asInt ?: 0
-        val avgM2 = market.get("averagePricePerSquareMeter")?.asString ?: "-"
-        val medianM2 = market.get("medianPricePerSquareMeter")?.asString ?: "-"
-        val usedAds = market.get("usedAdsCount")?.asString ?: "0"
-        val cityUsedAds = market.get("usedCityAdsCount")?.asString ?: "0"
-        val recommendation = market.get("recommendation")?.asString ?: ""
+        val source = market.safeString("marketSource")
+        val basePrice = market.safeInt("marketBasePrice")
+        val avgM2 = market.safeString("averagePricePerSquareMeter")
+        val medianM2 = market.safeString("medianPricePerSquareMeter")
+        val usedAds = market.safeString("usedAdsCount", "0")
+        val cityUsedAds = market.safeString("usedCityAdsCount", "0")
+        val recommendation = market.safeString("recommendation", "")
 
         addCard(
             title = "Рыночный анализ",
             value = """
-                Источник расчета: ${formatMarketSource(source)}
-                Базовая рыночная цена: ${formatPrice(basePrice)} ₽
-                
-                Средняя цена за м²: $avgM2 ₽
-                Медианная цена за м²: $medianM2 ₽
-                
-                Использовано объявлений рядом: $usedAds
-                Использовано объявлений по городу: $cityUsedAds
-                
-                $recommendation
-            """.trimIndent()
+|Источник расчета: ${formatMarketSource(source)}
+|Базовая рыночная цена: ${formatPrice(basePrice)} ₽
+|
+|Средняя цена за м²: $avgM2 ₽
+|Медианная цена за м²: $medianM2 ₽
+|
+|Использовано объявлений рядом: $usedAds
+|Использовано объявлений по городу: $cityUsedAds
+|
+|$recommendation
+""".trimMargin()
         )
     }
 
     private fun renderPriceImpact(json: JsonObject) {
-        val priceImpact = json.getAsJsonObject("priceImpact")
+        val priceImpact = json.safeObject("priceImpact")
 
-        val coefficient = priceImpact?.get("coefficient")?.asDouble ?: 1.0
-        val description = priceImpact?.get("description")?.asString ?: "-"
+        val coefficient = priceImpact.safeDouble("coefficient", 1.0)
+        val description = priceImpact.safeString("description")
 
         addCard(
             title = "Влияние локации на цену",
             value = """
-                Коэффициент: ${formatCoefficient(coefficient)}
-                
-                $description
-            """.trimIndent()
+|Коэффициент: ${formatCoefficient(coefficient)}
+|
+|$description
+""".trimMargin()
         )
     }
 
     private fun renderRecommendations(json: JsonObject) {
-        val recommendations = json.getAsJsonArray("recommendations")
-
         addCard(
             title = "Рекомендации",
-            value = formatStringArray(recommendations)
+            value = formatStringArray(json.safeArray("recommendations"))
         )
     }
 
@@ -219,12 +220,14 @@ class GeoAnalysisResultFragment : Fragment() {
 
         return array
             .take(5)
-            .joinToString("\n") { element ->
-                val obj = element.asJsonObject
-                val name = obj.get("name")?.asString ?: "Без названия"
-                val distance = obj.get("distanceMeters")?.asString ?: "-"
+            .mapNotNull { element ->
+                val obj = element.asSafeObject() ?: return@mapNotNull null
+                val name = obj.safeString("name", "Без названия")
+                val distance = obj.safeString("distanceMeters", "-")
                 "• $name — $distance м"
             }
+            .joinToString("\n")
+            .ifBlank { "не найдено" }
     }
 
     private fun formatStringArray(array: JsonArray?): String {
@@ -232,9 +235,12 @@ class GeoAnalysisResultFragment : Fragment() {
             return "Рекомендаций нет"
         }
 
-        return array.joinToString("\n") {
-            "• ${it.asString}"
-        }
+        return array
+            .mapNotNull { element ->
+                if (element.isJsonNull) null else "• ${element.asString}"
+            }
+            .joinToString("\n")
+            .ifBlank { "Рекомендаций нет" }
     }
 
     private fun addCard(title: String, value: String) {
@@ -245,15 +251,19 @@ class GeoAnalysisResultFragment : Fragment() {
         }
 
         val titleView = TextView(requireContext()).apply {
-            text = title
+            text = title.trim()
             textSize = 16f
             typeface = Typeface.DEFAULT_BOLD
+            gravity = Gravity.START
+            includeFontPadding = false
             setTextColor(resources.getColor(R.color.black, null))
         }
 
         val valueView = TextView(requireContext()).apply {
-            text = value
+            text = value.trim()
             textSize = 14f
+            gravity = Gravity.START
+            includeFontPadding = false
             setTextColor(resources.getColor(R.color.dark_gray, null))
             setPadding(0, 10, 0, 0)
         }
@@ -289,6 +299,68 @@ class GeoAnalysisResultFragment : Fragment() {
             "city" -> "среднее по городу"
             "fallback" -> "резервная модель"
             else -> source
+        }
+    }
+
+    private fun JsonObject?.safeString(
+        key: String,
+        default: String = "-"
+    ): String {
+        val value = this?.get(key)
+        return if (value == null || value.isJsonNull) {
+            default
+        } else {
+            value.asString
+        }
+    }
+
+    private fun JsonObject?.safeInt(
+        key: String,
+        default: Int = 0
+    ): Int {
+        val value = this?.get(key)
+        return if (value == null || value.isJsonNull) {
+            default
+        } else {
+            value.asInt
+        }
+    }
+
+    private fun JsonObject?.safeDouble(
+        key: String,
+        default: Double = 0.0
+    ): Double {
+        val value = this?.get(key)
+        return if (value == null || value.isJsonNull) {
+            default
+        } else {
+            value.asDouble
+        }
+    }
+
+    private fun JsonObject?.safeObject(key: String): JsonObject? {
+        val value = this?.get(key)
+        return if (value == null || value.isJsonNull || !value.isJsonObject) {
+            null
+        } else {
+            value.asJsonObject
+        }
+    }
+
+    private fun JsonObject?.safeArray(key: String): JsonArray? {
+        val value = this?.get(key)
+        return if (value == null || value.isJsonNull || !value.isJsonArray) {
+            null
+        } else {
+            value.asJsonArray
+        }
+    }
+
+    private fun JsonElement?.asSafeObject(): JsonObject? {
+        return if (this == null || this.isJsonNull || !this.isJsonObject) {
+            null
+        } else {
+            this.asJsonObject
         }
     }
 

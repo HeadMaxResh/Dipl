@@ -1,6 +1,7 @@
 package com.example.dipl.presentation.fragment
 
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,14 +16,12 @@ import com.example.dipl.data.api.Api.analysisApiService
 import com.example.dipl.databinding.FragmentApartmentPriceSummaryBinding
 import com.example.dipl.domain.dto.ApartmentInfoDto
 import com.example.dipl.domain.model.User
-import com.example.dipl.domain.request.CalculateFromAnalysisRequest
 import com.example.dipl.presentation.PrefManager
-import com.example.dipl.presentation.toPhotoPart
 import com.example.dipl.presentation.utils.toJsonObject
 import com.example.dipl.presentation.utils.toJsonRequestBody
-import com.example.dipl.presentation.utils.toTextBody
 import com.example.dipl.presentation.viewmodel.AddApartmentSharedViewModel
 import com.example.dipl.presentation.viewmodel.ApartmentInfoViewModel
+import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -47,10 +46,24 @@ class ApartmentPriceSummaryFragment : Fragment() {
     ): View {
         _binding = FragmentApartmentPriceSummaryBinding.inflate(inflater, container, false)
 
+        prepareTextViews()
         setupClickListeners()
         evaluateApartment()
 
         return binding.root
+    }
+
+    private fun prepareTextViews() {
+        listOf(
+            binding.tvCoefficients,
+            binding.tvPriceFactors,
+            binding.tvShortSummary
+        ).forEach { textView ->
+            textView.gravity = Gravity.START
+            textView.textAlignment = View.TEXT_ALIGNMENT_VIEW_START
+            textView.includeFontPadding = false
+            textView.setLineSpacing(0f, 1.15f)
+        }
     }
 
     private fun setupClickListeners() {
@@ -75,24 +88,20 @@ class ApartmentPriceSummaryFragment : Fragment() {
             return
         }
 
-        val photoParts = sharedViewModel.photos.mapIndexed { index, bytes ->
-            bytes.toPhotoPart(index)
+        if (
+            sharedViewModel.textAnalysis == null ||
+            sharedViewModel.imageAnalysis == null ||
+            sharedViewModel.geoAnalysis == null
+        ) {
+            showError("Не все результаты анализа получены")
+            return
         }
 
         setLoading(true)
 
-        /*val request = CalculateFromAnalysisRequest(
-            area = sharedViewModel.area,
-            rooms = sharedViewModel.rooms,
-            textAnalysis = sharedViewModel.textAnalysis!!,
-            imageAnalysis = sharedViewModel.imageAnalysis!!,
-            geoAnalysis = sharedViewModel.geoAnalysis!!
-        )*/
-
         val requestJson = JsonObject().apply {
             addProperty("area", sharedViewModel.area)
             addProperty("rooms", sharedViewModel.rooms)
-
             add("textAnalysis", sharedViewModel.textAnalysis)
             add("imageAnalysis", sharedViewModel.imageAnalysis)
             add("geoAnalysis", sharedViewModel.geoAnalysis)
@@ -112,7 +121,6 @@ class ApartmentPriceSummaryFragment : Fragment() {
 
                 if (response.isSuccessful && body != null) {
                     val json = body.toJsonObject()
-
                     sharedViewModel.priceAnalysis = json
                     renderPriceResult(json)
                 } else {
@@ -128,53 +136,15 @@ class ApartmentPriceSummaryFragment : Fragment() {
                 showError("Ошибка подключения: ${t.message}")
             }
         })
-
-        /*analysisApiService.calculateFromAnalysis(request)
-            .enqueue(object : Callback<ResponseBody> {
-
-                override fun onResponse(
-                    call: Call<ResponseBody>,
-                    response: Response<ResponseBody>
-                ) {
-                    setLoading(false)
-
-                    val body = response.body()
-
-                    if (response.isSuccessful && body != null) {
-                        val json = body.toJsonObject()
-
-                        sharedViewModel.priceAnalysis = json
-                        renderPriceResult(json)
-                    } else {
-                        showError("Не удалось рассчитать стоимость")
-                    }
-                }
-
-                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                    setLoading(false)
-                    showError("Ошибка подключения: ${t.message}")
-                }
-            })*/
     }
 
     private fun renderPriceResult(json: JsonObject) {
-        val price = json.getAsJsonObject("price")
+        val price = json.safeObject("price")
 
-        val recommendedPrice = price
-            ?.get("recommendedPrice")
-            ?.asInt ?: 0
-
-        val minPrice = price
-            ?.get("minPrice")
-            ?.asInt ?: 0
-
-        val maxPrice = price
-            ?.get("maxPrice")
-            ?.asInt ?: 0
-
-        val marketBasePrice = price
-            ?.get("marketBasePrice")
-            ?.asInt ?: 0
+        val recommendedPrice = price.safeInt("recommendedPrice")
+        val minPrice = price.safeInt("minPrice")
+        val maxPrice = price.safeInt("maxPrice")
+        val marketBasePrice = price.safeInt("marketBasePrice")
 
         sharedViewModel.recommendedPrice = recommendedPrice
         sharedViewModel.finalRent = recommendedPrice
@@ -193,63 +163,55 @@ class ApartmentPriceSummaryFragment : Fragment() {
     }
 
     private fun renderCoefficients(price: JsonObject?) {
-        val coefficients = price?.getAsJsonObject("coefficients")
+        val coefficients = price.safeObject("coefficients")
 
-        val textCoefficient = coefficients?.get("textCoefficient")?.asDouble ?: 1.0
-        val imageCoefficient = coefficients?.get("imageCoefficient")?.asDouble ?: 1.0
-        val geoCoefficient = coefficients?.get("geoCoefficient")?.asDouble ?: 1.0
+        val textCoefficient = coefficients.safeDouble("textCoefficient", 1.0)
+        val imageCoefficient = coefficients.safeDouble("imageCoefficient", 1.0)
+        val geoCoefficient = coefficients.safeDouble("geoCoefficient", 1.0)
 
-        binding.tvCoefficients.text = """
-            Коэффициенты:
-            • Описание: ${formatCoefficient(textCoefficient)}
-            • Фотографии: ${formatCoefficient(imageCoefficient)}
-            • Локация: ${formatCoefficient(geoCoefficient)}
-        """.trimIndent()
+        binding.tvCoefficients.text = buildLines(
+            listOf(
+                "Коэффициенты:",
+                "• Описание: ${formatCoefficient(textCoefficient)}",
+                "• Фотографии: ${formatCoefficient(imageCoefficient)}",
+                "• Локация: ${formatCoefficient(geoCoefficient)}"
+            )
+        )
     }
 
     private fun renderPriceFactors(price: JsonObject?) {
-        val factors = price
-            ?.getAsJsonArray("priceFactors")
-            ?.joinToString("\n") { "• ${it.asString}" }
-            ?: "Факторы не определены"
+        val factors = formatStringArray(
+            price.safeArray("priceFactors"),
+            "Факторы не определены"
+        )
 
-        binding.tvPriceFactors.text = """
-            Факторы стоимости:
-            $factors
-        """.trimIndent()
+        binding.tvPriceFactors.text = buildLines(
+            listOf("Факторы стоимости:") + factors
+        )
     }
 
     private fun renderShortSummary(json: JsonObject) {
-        val analysis = json.getAsJsonObject("analysis")
+        val analysis = json.safeObject("analysis")
 
         val imageSummary = analysis
-            ?.getAsJsonObject("imageAnalysis")
-            ?.getAsJsonObject("apartmentSummary")
+            .safeObject("imageAnalysis")
+            .safeObject("apartmentSummary")
 
-        val geoAnalysis = analysis
-            ?.getAsJsonObject("geoAnalysis")
+        val geoAnalysis = analysis.safeObject("geoAnalysis")
+        val textAnalysis = analysis.safeObject("textAnalysis")
 
-        val textAnalysis = analysis
-            ?.getAsJsonObject("textAnalysis")
+        val visualLevel = imageSummary.safeString("visualQualityLevel")
+        val locationLevel = geoAnalysis.safeString("qualityLevel")
+        val textLevel = textAnalysis.safeString("qualityLevel")
 
-        val visualLevel = imageSummary
-            ?.get("visualQualityLevel")
-            ?.asString ?: "-"
-
-        val locationLevel = geoAnalysis
-            ?.get("qualityLevel")
-            ?.asString ?: "-"
-
-        val textLevel = textAnalysis
-            ?.get("qualityLevel")
-            ?.asString ?: "-"
-
-        binding.tvShortSummary.text = """
-            Сводка анализа:
-            • Визуальное состояние: $visualLevel
-            • Локация: $locationLevel
-            • Описание: $textLevel
-        """.trimIndent()
+        binding.tvShortSummary.text = buildLines(
+            listOf(
+                "Сводка анализа:",
+                "• Визуальное состояние: $visualLevel",
+                "• Локация: $locationLevel",
+                "• Описание: $textLevel"
+            )
+        )
     }
 
     private fun createApartment() {
@@ -271,21 +233,22 @@ class ApartmentPriceSummaryFragment : Fragment() {
         }
 
         sharedViewModel.finalRent = finalRent
-
         showCreateConfirmDialog(user, finalRent)
     }
 
     private fun showCreateConfirmDialog(user: User, finalRent: Int) {
+        val message = buildLines(
+            listOf(
+                "Рекомендованная цена: ${formatPrice(sharedViewModel.recommendedPrice)} ₽",
+                "Итоговая цена: ${formatPrice(finalRent)} ₽",
+                "",
+                "Объявление будет создано с указанной стоимостью."
+            )
+        )
+
         AlertDialog.Builder(requireContext())
             .setTitle("Разместить квартиру?")
-            .setMessage(
-                """
-                Рекомендованная цена: ${formatPrice(sharedViewModel.recommendedPrice)} ₽
-                Итоговая цена: ${formatPrice(finalRent)} ₽
-                
-                Объявление будет создано с указанной стоимостью.
-                """.trimIndent()
-            )
+            .setMessage(message)
             .setPositiveButton("Разместить") { _, _ ->
                 saveApartment(user, finalRent)
             }
@@ -312,7 +275,6 @@ class ApartmentPriceSummaryFragment : Fragment() {
         )
 
         apartmentInfoViewModel.addApartment(apartmentInfoDto)
-
         sharedViewModel.clear()
 
         Toast.makeText(
@@ -330,7 +292,6 @@ class ApartmentPriceSummaryFragment : Fragment() {
         val context = requireContext()
         val imageHash = byteArray.contentHashCode()
         val fileName = "$imageHash.jpg"
-
         val file = File(context.filesDir, fileName)
 
         if (!file.exists()) {
@@ -345,13 +306,38 @@ class ApartmentPriceSummaryFragment : Fragment() {
     private fun setLoading(isLoading: Boolean) {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
         binding.tvStatus.visibility = if (isLoading) View.VISIBLE else View.GONE
-        binding.btnCreateApartment.isEnabled = !isLoading && binding.llResultContainer.visibility == View.VISIBLE
+
+        binding.btnCreateApartment.isEnabled =
+            !isLoading && binding.llResultContainer.visibility == View.VISIBLE
 
         binding.btnCreateApartment.text = if (isLoading) {
             "Рассчитываем..."
         } else {
             "Разместить квартиру"
         }
+    }
+
+    private fun formatStringArray(
+        array: JsonArray?,
+        emptyText: String
+    ): List<String> {
+        if (array == null || array.size() == 0) {
+            return listOf(emptyText)
+        }
+
+        val rows = array
+            .mapNotNull {
+                if (it.isJsonNull) null else "• ${it.asString}"
+            }
+            .filter { it.isNotBlank() }
+
+        return rows.ifEmpty {
+            listOf(emptyText)
+        }
+    }
+
+    private fun buildLines(lines: List<String>): String {
+        return lines.joinToString("\n") { it.trim() }.trim()
     }
 
     private fun formatPrice(value: Int): String {
@@ -363,6 +349,60 @@ class ApartmentPriceSummaryFragment : Fragment() {
             value > 1.0 -> "+${((value - 1.0) * 100).toInt()}%"
             value < 1.0 -> "-${((1.0 - value) * 100).toInt()}%"
             else -> "0%"
+        }
+    }
+
+    private fun JsonObject?.safeString(
+        key: String,
+        default: String = "-"
+    ): String {
+        val value = this?.get(key)
+        return if (value == null || value.isJsonNull) {
+            default
+        } else {
+            value.asString
+        }
+    }
+
+    private fun JsonObject?.safeInt(
+        key: String,
+        default: Int = 0
+    ): Int {
+        val value = this?.get(key)
+        return if (value == null || value.isJsonNull) {
+            default
+        } else {
+            value.asInt
+        }
+    }
+
+    private fun JsonObject?.safeDouble(
+        key: String,
+        default: Double = 0.0
+    ): Double {
+        val value = this?.get(key)
+        return if (value == null || value.isJsonNull) {
+            default
+        } else {
+            value.asDouble
+        }
+    }
+
+    private fun JsonObject?.safeObject(key: String): JsonObject? {
+        val value = this?.get(key)
+        return if (value == null || value.isJsonNull || !value.isJsonObject) {
+            null
+        } else {
+            value.asJsonObject
+        }
+    }
+
+    private fun JsonObject?.safeArray(key: String): JsonArray? {
+        val value = this?.get(key)
+        return if (value == null || value.isJsonNull || !value.isJsonArray) {
+            null
+        } else {
+            value.asJsonArray
         }
     }
 

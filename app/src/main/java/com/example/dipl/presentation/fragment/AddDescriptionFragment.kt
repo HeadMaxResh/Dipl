@@ -93,14 +93,14 @@ class AddDescriptionFragment : Fragment() {
 
                         sharedViewModel.textAnalysis = json
 
-                        showAnalysisDialog(
+                        /*showAnalysisDialog(
                             title = "Анализ описания",
                             message = buildTextAnalysisMessage(json)
-                        ) {
+                        ) {*/
                             findNavController().navigate(
                                 R.id.action_addDescriptionFragment_to_textAnalysisResultFragment
                             )
-                        }
+                        /*}*/
                     } else {
                         showError("Не удалось выполнить анализ описания")
                     }

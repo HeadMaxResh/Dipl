@@ -2,6 +2,7 @@ package com.example.dipl.presentation.fragment
 
 import android.graphics.Typeface
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -56,19 +57,19 @@ class TextAnalysisResultFragment : Fragment() {
 
         if (json == null) {
             addCard(
-                "Нет данных",
-                "Результат анализа описания отсутствует. Вернитесь к форме и выполните анализ снова."
+                title = "Нет данных",
+                value = "Результат анализа описания отсутствует. Вернитесь к форме и выполните анализ снова."
             )
             return
         }
 
         addCard(
-            "Итоговая оценка описания",
-            """
-            Уровень: ${json.safeString("qualityLevel")}
-            Длина текста: ${json.safeString("textLength")} символов
-            Нормализованная длина: ${json.safeString("normalizedTextLength")} символов
-            """.trimIndent()
+            title = "Итоговая оценка описания",
+            value = """
+|Уровень: ${json.safeString("qualityLevel")}
+|Длина текста: ${json.safeString("textLength")} символов
+|Нормализованная длина: ${json.safeString("normalizedTextLength")} символов
+""".trimMargin()
         )
 
         renderScores(json)
@@ -85,11 +86,11 @@ class TextAnalysisResultFragment : Fragment() {
         val scores = json.safeObject("scores")
 
         addCard(
-            "Оценки текста",
-            """
-            Полнота описания: ${scores.safeString("descriptionQualityScore")}
-            Признаки квартиры: ${scores.safeString("textFeatureScore")}
-            """.trimIndent()
+            title = "Оценки текста",
+            value = """
+|Полнота описания: ${scores.safeString("descriptionQualityScore")}
+|Признаки квартиры: ${scores.safeString("textFeatureScore")}
+""".trimMargin()
         )
     }
 
@@ -97,17 +98,17 @@ class TextAnalysisResultFragment : Fragment() {
         val features = json.safeObject("apartmentFeatures")
 
         addCard(
-            "Характеристики квартиры",
-            """
-            Комнат: ${features.safeString("rooms")}
-            Площадь: ${features.safeString("area")} м²
-            Этаж: ${features.safeString("floor")}
-            Балкон: ${formatBoolean(features.safeBoolean("hasBalcony"))}
-            Парковка: ${formatBoolean(features.safeBoolean("hasParking"))}
-            Лифт: ${formatBoolean(features.safeBoolean("hasElevator"))}
-            Студия: ${formatBoolean(features.safeBoolean("isStudio"))}
-            Изолированные комнаты: ${formatBoolean(features.safeBoolean("hasSeparateRooms"))}
-            """.trimIndent()
+            title = "Характеристики квартиры",
+            value = """
+|Комнат: ${features.safeString("rooms")}
+|Площадь: ${features.safeString("area")} м²
+|Этаж: ${formatFloor(features.safeObject("floor"))}
+|Балкон: ${formatBoolean(features.safeBoolean("hasBalcony"))}
+|Парковка: ${formatBoolean(features.safeBoolean("hasParking"))}
+|Лифт: ${formatBoolean(features.safeBoolean("hasElevator"))}
+|Студия: ${formatBoolean(features.safeBoolean("isStudio"))}
+|Изолированные комнаты: ${formatBoolean(features.safeBoolean("hasSeparateRooms"))}
+""".trimMargin()
         )
     }
 
@@ -115,13 +116,13 @@ class TextAnalysisResultFragment : Fragment() {
         val repair = json.safeObject("repairFeatures")
 
         addCard(
-            "Ремонт",
-            """
-            Качество ремонта: ${repair.safeString("repairQuality")}
-            Новый ремонт: ${formatBoolean(repair.safeBoolean("hasNewRepair"))}
-            Дизайнерский ремонт: ${formatBoolean(repair.safeBoolean("hasDesignRepair"))}
-            Требуется ремонт: ${formatBoolean(repair.safeBoolean("needsRepair"))}
-            """.trimIndent()
+            title = "Ремонт",
+            value = """
+|Качество ремонта: ${repair.safeString("repairQuality")}
+|Новый ремонт: ${formatBoolean(repair.safeBoolean("hasNewRepair"))}
+|Дизайнерский ремонт: ${formatBoolean(repair.safeBoolean("hasDesignRepair"))}
+|Требуется ремонт: ${formatBoolean(repair.safeBoolean("needsRepair"))}
+""".trimMargin()
         )
     }
 
@@ -129,16 +130,16 @@ class TextAnalysisResultFragment : Fragment() {
         val furniture = json.safeObject("furnitureFeatures")
 
         addCard(
-            "Мебель",
-            """
-            Мебель указана: ${formatBoolean(furniture.safeBoolean("hasFurniture"))}
-            Без мебели: ${formatBoolean(furniture.safeBoolean("noFurniture"))}
-            Состояние мебели: ${furniture.safeString("furnitureCondition")}
-            Кухонный гарнитур: ${formatBoolean(furniture.safeBoolean("hasKitchenFurniture"))}
-            Шкаф: ${formatBoolean(furniture.safeBoolean("hasWardrobe"))}
-            Кровать: ${formatBoolean(furniture.safeBoolean("hasBed"))}
-            Диван: ${formatBoolean(furniture.safeBoolean("hasSofa"))}
-            """.trimIndent()
+            title = "Мебель",
+            value = """
+|Мебель указана: ${formatBoolean(furniture.safeBoolean("hasFurniture"))}
+|Без мебели: ${formatBoolean(furniture.safeBoolean("noFurniture"))}
+|Состояние мебели: ${furniture.safeString("furnitureCondition")}
+|Кухонный гарнитур: ${formatBoolean(furniture.safeBoolean("hasKitchenFurniture"))}
+|Шкаф: ${formatBoolean(furniture.safeBoolean("hasWardrobe"))}
+|Кровать: ${formatBoolean(furniture.safeBoolean("hasBed"))}
+|Диван: ${formatBoolean(furniture.safeBoolean("hasSofa"))}
+""".trimMargin()
         )
     }
 
@@ -146,19 +147,19 @@ class TextAnalysisResultFragment : Fragment() {
         val appliances = json.safeObject("appliancesFeatures")
 
         addCard(
-            "Техника и оснащение",
-            """
-            Холодильник: ${formatBoolean(appliances.safeBoolean("refrigerator"))}
-            Стиральная машина: ${formatBoolean(appliances.safeBoolean("washingMachine"))}
-            Посудомоечная машина: ${formatBoolean(appliances.safeBoolean("dishwasher"))}
-            Кондиционер: ${formatBoolean(appliances.safeBoolean("airConditioner"))}
-            Телевизор: ${formatBoolean(appliances.safeBoolean("tv"))}
-            Микроволновка: ${formatBoolean(appliances.safeBoolean("microwave"))}
-            Интернет: ${formatBoolean(appliances.safeBoolean("internet"))}
-            
-            Количество найденной техники: ${appliances.safeString("appliancesCount")}
-            Уровень оснащения: ${appliances.safeString("appliancesLevel")}
-            """.trimIndent()
+            title = "Техника и оснащение",
+            value = """
+|Холодильник: ${formatBoolean(appliances.safeBoolean("refrigerator"))}
+|Стиральная машина: ${formatBoolean(appliances.safeBoolean("washingMachine"))}
+|Посудомоечная машина: ${formatBoolean(appliances.safeBoolean("dishwasher"))}
+|Кондиционер: ${formatBoolean(appliances.safeBoolean("airConditioner"))}
+|Телевизор: ${formatBoolean(appliances.safeBoolean("tv"))}
+|Микроволновка: ${formatBoolean(appliances.safeBoolean("microwave"))}
+|Интернет: ${formatBoolean(appliances.safeBoolean("internet"))}
+|
+|Количество найденной техники: ${appliances.safeString("appliancesCount")}
+|Уровень оснащения: ${appliances.safeString("appliancesLevel")}
+""".trimMargin()
         )
     }
 
@@ -166,17 +167,17 @@ class TextAnalysisResultFragment : Fragment() {
         val rules = json.safeObject("tenantRules")
 
         addCard(
-            "Условия проживания",
-            """
-            Можно с животными: ${formatBoolean(rules.safeBoolean("petsAllowed"))}
-            Животные запрещены: ${formatBoolean(rules.safeBoolean("petsForbidden"))}
-            Можно с детьми: ${formatBoolean(rules.safeBoolean("childrenAllowed"))}
-            Дети запрещены: ${formatBoolean(rules.safeBoolean("childrenForbidden"))}
-            Курение запрещено: ${formatBoolean(rules.safeBoolean("smokingForbidden"))}
-            Только долгосрочная аренда: ${formatBoolean(rules.safeBoolean("longTermOnly"))}
-            Залог указан: ${formatBoolean(rules.safeBoolean("depositMentioned"))}
-            Коммунальные платежи указаны: ${formatBoolean(rules.safeBoolean("utilitiesMentioned"))}
-            """.trimIndent()
+            title = "Условия проживания",
+            value = """
+|Можно с животными: ${formatBoolean(rules.safeBoolean("petsAllowed"))}
+|Животные запрещены: ${formatBoolean(rules.safeBoolean("petsForbidden"))}
+|Можно с детьми: ${formatBoolean(rules.safeBoolean("childrenAllowed"))}
+|Дети запрещены: ${formatBoolean(rules.safeBoolean("childrenForbidden"))}
+|Курение запрещено: ${formatBoolean(rules.safeBoolean("smokingForbidden"))}
+|Только долгосрочная аренда: ${formatBoolean(rules.safeBoolean("longTermOnly"))}
+|Залог указан: ${formatBoolean(rules.safeBoolean("depositMentioned"))}
+|Коммунальные платежи указаны: ${formatBoolean(rules.safeBoolean("utilitiesMentioned"))}
+""".trimMargin()
         )
     }
 
@@ -185,19 +186,19 @@ class TextAnalysisResultFragment : Fragment() {
         val coefficient = priceImpact.safeDouble("coefficient", 1.0)
 
         addCard(
-            "Влияние описания на цену",
-            """
-            Коэффициент: ${formatCoefficient(coefficient)}
-            
-            ${priceImpact.safeString("description")}
-            """.trimIndent()
+            title = "Влияние описания на цену",
+            value = """
+|Коэффициент: ${formatCoefficient(coefficient)}
+|
+|${priceImpact.safeString("description")}
+""".trimMargin()
         )
     }
 
     private fun renderRecommendations(json: JsonObject) {
         addCard(
-            "Нюансы и рекомендации",
-            formatStringArray(json.safeArray("recommendations"))
+            title = "Нюансы и рекомендации",
+            value = formatStringArray(json.safeArray("recommendations"))
         )
     }
 
@@ -209,15 +210,19 @@ class TextAnalysisResultFragment : Fragment() {
         }
 
         val titleView = TextView(requireContext()).apply {
-            text = title
+            text = title.trim()
             textSize = 16f
             typeface = Typeface.DEFAULT_BOLD
+            gravity = Gravity.START
+            includeFontPadding = false
             setTextColor(resources.getColor(R.color.black, null))
         }
 
         val valueView = TextView(requireContext()).apply {
-            text = value
+            text = value.trim()
             textSize = 14f
+            gravity = Gravity.START
+            includeFontPadding = false
             setTextColor(resources.getColor(R.color.dark_gray, null))
             setPadding(0, 10, 0, 0)
         }
@@ -233,6 +238,44 @@ class TextAnalysisResultFragment : Fragment() {
         params.setMargins(0, 0, 0, 16)
 
         binding.llContent.addView(container, params)
+    }
+
+    private fun formatFloor(floor: JsonObject?): String {
+        if (floor == null) return "-"
+
+        val currentFloor = floor.safeString("floor")
+        val totalFloors = floor.safeString("totalFloors")
+
+        return if (totalFloors == "-") {
+            currentFloor
+        } else {
+            "$currentFloor из $totalFloors"
+        }
+    }
+
+    private fun formatStringArray(array: JsonArray?): String {
+        if (array == null || array.size() == 0) {
+            return "Рекомендаций нет"
+        }
+
+        return array
+            .mapNotNull {
+                if (it.isJsonNull) null else "• ${it.asString}"
+            }
+            .joinToString("\n")
+            .ifBlank { "Рекомендаций нет" }
+    }
+
+    private fun formatBoolean(value: Boolean): String {
+        return if (value) "да" else "нет"
+    }
+
+    private fun formatCoefficient(value: Double): String {
+        return when {
+            value > 1.0 -> "+${((value - 1.0) * 100).toInt()}%"
+            value < 1.0 -> "-${((1.0 - value) * 100).toInt()}%"
+            else -> "0%"
+        }
     }
 
     private fun JsonObject?.safeString(key: String, default: String = "-"): String {
@@ -282,28 +325,6 @@ class TextAnalysisResultFragment : Fragment() {
             null
         } else {
             value.asJsonArray
-        }
-    }
-
-    private fun formatStringArray(array: JsonArray?): String {
-        if (array == null || array.size() == 0) {
-            return "Рекомендаций нет"
-        }
-
-        return array.joinToString("\n") {
-            if (it.isJsonNull) "• -" else "• ${it.asString}"
-        }
-    }
-
-    private fun formatBoolean(value: Boolean): String {
-        return if (value) "да" else "нет"
-    }
-
-    private fun formatCoefficient(value: Double): String {
-        return when {
-            value > 1.0 -> "+${((value - 1.0) * 100).toInt()}%"
-            value < 1.0 -> "-${((1.0 - value) * 100).toInt()}%"
-            else -> "0%"
         }
     }
 

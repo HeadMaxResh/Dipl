@@ -123,7 +123,7 @@ fun AddPhotosScreen(
     if (showDialog) {
         val summary = state.imageAnalysis?.apartmentSummary
 
-        AlertDialog(
+        /*AlertDialog(
             onDismissRequest = {},
             title = { Text("Анализ фотографий") },
             text = {
@@ -149,6 +149,6 @@ fun AddPhotosScreen(
                     Text("Продолжить")
                 }
             }
-        )
+        )*/
     }
 }
